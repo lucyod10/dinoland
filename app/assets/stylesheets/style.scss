@@ -10,7 +10,7 @@ body {
   background-color: snow;
 }
 .container {
-  background-color: rgba(255, 255, 255, 1);
+  background-color: rgba(200, 255, 200, 1);
   max-width: 700px;
   margin: 0 auto;
   padding: 20px
@@ -32,9 +32,20 @@ h1, h2, h3 {
 }
 
 .feature {
-  max-width: 40em;
+  max-width: 30em;
 }
 
 .thumb {
   max-width: 10em;
+}
+
+.profile_image {
+  border-radius: 100%;
+  max-width: 10em;
+  max-height: 10em;
+}
+
+.profile_image .thumb {
+  max-width: 4em;
+  max-height: 4em;
 }

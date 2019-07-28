@@ -9,11 +9,25 @@ class ApplicationController < ActionController::Base
     end
 
     def check_for_login
-      redirect_to login_path unless @current_user.present?
+      if @current_user.present? && @current_user.admin == true
+        # If you're logged in and an admin, go forth
+      elsif @current_user.present? && @current_user.admin == false
+        # If you're logged in and not an admin
+      else
+        # If you're logged out
+        redirect_to login_path
+      end
     end
 
     def logged_in_send_home
-      redirect_to root_path if @current_user.present?
+      if @current_user.present? && @current_user.admin == true
+        # If you're logged in and an admin, go forth
+      elsif @current_user.present? && @current_user.admin == false
+        # If you're logged in and not an admin
+        redirect_to root_path
+      else
+        # If you're logged out
+      end
     end
 
 end

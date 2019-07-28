@@ -10,8 +10,10 @@
 <!-- TODO: check that this link works after creating user show pages. Profiles? -->
 <p>Creator: <%= link_to @species.user.username, user_path(@species.user.id) %></p>
 
+<p>Number of Characters using: <%= @num_characters.count  %></p>
+
 <%# Only allow edit and delete button, if the character is @current_user's %>
-<% if @current_user.id == @species.user_id %>
+<% if @current_user.id == @species.user_id  || @current_user.admin == true%>
   <div class="edit">
     <%= link_to "Edit #{@species.genus}", edit_species_path(@species.id) %>
     <%= button_to "Delete #{@species.genus}!", @species, :method => "delete", :data => {:confirm => "Are you sure?"} %>

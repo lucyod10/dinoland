@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   root :to => "pages#home"
-  resources :users, :only => [:new, :create, :edit, :update, :index, :show]
+  resources :users
   get "/session/characters" => "session#characters"
   get "/session/species" => "session#species"
   get "/session/accessories" => "session#accessories"

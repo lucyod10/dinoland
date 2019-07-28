@@ -1,7 +1,11 @@
 <h1><%= @user.username %>!</h1>
+<% if @user.admin == true %>
+<h2>Admin</h2>
+<% end %>
 
-<p>email: <%= @user.email %></p>
-<p>coins: <%= @user.coins %></p>
+<%= image_tag @user.profile_image, :class => "profile_image" if @user.profile_image.present?%>
+<p>email: <%= @user.email  if @user.email.present?%></p>
+<p>coins: <%= @user.coins  if @user.coins.present?%></p>
 
 <% if @user.characters.count > 0 %>
 <p>Characters: </p>
@@ -34,8 +38,10 @@
 </ul>
 <% end %>
 
+
+
 <%# Only allow edit and delete button, if the user looking is @current_user's %>
-<% if @current_user.id == @user.id %>
+<% if @current_user.id == @user.id || @current_user.admin == true %>
   <div class="edit">
     <%= link_to "Edit #{@user.username}", edit_user_path(@user.id) %>
     <%= button_to "Delete #{@user.username}!", @user, :method => "delete", :data => {:confirm => "Are you sure?"} %>

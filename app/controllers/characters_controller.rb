@@ -24,7 +24,7 @@ class CharactersController < ApplicationController
   def edit
     # Only show this page, if the character is the @current_user's
     @character = Character.find params[:id]
-    if @character.user_id == @current_user.id
+    if @character.user_id == @current_user.id || @current_user.admin == true
       render :edit
     else
       redirect_to characters_path

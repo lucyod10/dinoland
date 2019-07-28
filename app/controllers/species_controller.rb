@@ -19,12 +19,15 @@ class SpeciesController < ApplicationController
 
   def show
     @species = Species.find params[:id]
+    # Logic for number of characters using this species
+    @num_characters = Character.includes(:species).where('species_id' => @species.id)
+
   end
 
   def edit
     # Only show this page, if the character is the @current_user's
     @species = Species.find params[:id]
-    if @species.user_id == @current_user.id
+    if @species.user_id == @current_user.id || @current_user.admin == true
       render :edit
     else
       redirect_to species_path

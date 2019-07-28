@@ -16,6 +16,7 @@
 
 
       <% if @current_user.present? %>
+        <%= link_to "All Users", users_path %>
         <ul>
           <li><%= link_to "Characters", characters_path %></li>
           <li><%= link_to "Your Characters", session_characters_path %></li>

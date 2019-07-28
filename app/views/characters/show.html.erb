@@ -8,8 +8,9 @@
 <% end %>
 <p>Creator: <%= link_to @character.user.username, user_path(@character.user.id)  %></p>
 
+
 <%# Only allow edit and delete button, if the character is @current_user's %>
-<% if @current_user.id == @character.user_id %>
+<% if @current_user.id == @character.user_id || @current_user.admin == true %>
   <div class="edit">
     <%= link_to "Edit #{@character.name}", edit_character_path(@character.id) %>
     <%= button_to "Delete #{@character.name}!", @character, :method => "delete", :data => {:confirm => "Are you sure?"} %>

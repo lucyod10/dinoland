@@ -19,12 +19,17 @@ class AccessoriesController < ApplicationController
 
   def show
     @accessory = Accessory.find params[:id]
+    @num_accessories = []
+    @characters = Character.includes(:accessories)
+    @characters.each do |c|
+      @num_accessories.push(c.accessories.where('id' => @accessory.id)) if c.accessories.where('id' => @accessory.id).exists?
+    end
   end
 
   def edit
     # Only show this page, if the accessory is the @current_user's
     @accessory = Accessory.find params[:id]
-    if @accessory.user_id == @current_user.id
+    if @accessory.user_id == @current_user.id || @current_user.admin == true
       render :edit
     else
       redirect_to accessories_path

@@ -3,5 +3,3 @@
 <% @characters.each do |character| %>
   <ol><li><%= link_to character.name, character %>, the <%= character.species.genus if character.species.present?  %></li></ol>
 <% end %>
-
-<%= link_to "New Dino", new_character_path %>
