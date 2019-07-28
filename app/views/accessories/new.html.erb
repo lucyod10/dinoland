@@ -1,0 +1,12 @@
+<h1>New Accessory!</h1>
+
+<% if @accessory.errors.any? %>
+<ol>
+  <% @accessory.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+  <% end %>
+</ol>
+<% end %>
+
+
+<%= render :partial => 'form' %>

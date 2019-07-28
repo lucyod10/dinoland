@@ -1,0 +1,8 @@
+<h1>Your accessories</h1>
+
+
+<% @accessories.each do |accessory| %>
+  <ul>
+    <li><%= link_to accessory.name, accessory %></li>
+  </ul>
+<% end %>

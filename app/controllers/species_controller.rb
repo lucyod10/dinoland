@@ -10,9 +10,9 @@ class SpeciesController < ApplicationController
   end
 
   def create
-    @species = Species.create params_character
+    @species = Species.create params_species
     @species.user_id = @current_user.id
-    @current_user.characters << @species
+    @current_user.species << @species
     # @TODO change to character index path
     redirect_to species_path(@species)
   end
@@ -31,7 +31,6 @@ class SpeciesController < ApplicationController
     end
   end
 
-# TODO: how to cause error if dont fill in all required fields
   def update
     species = Species.find params[:id]
     species.update params_species
@@ -45,6 +44,6 @@ class SpeciesController < ApplicationController
 
   private
   def params_species
-    params.require(:character).permit(:name, :age, :talent, :user_id, :species_id)
+    params.require(:species).permit(:genus, :order, :diet, :image, :fun_fact, :user_id)
   end
 end

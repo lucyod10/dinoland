@@ -1,0 +1,18 @@
+<%= form_for @species do |f| %>
+<%= f.label :genus, :autofocus => true, :required => true %>
+<%= f.text_field :genus %>
+
+<%= f.label :order, :required => true %>
+<%= f.text_field :order %>
+
+<%= f.label :diet, :required => true %>
+<%= f.text_field :diet %>
+
+<%= f.label :image, :required => true %>
+<%= f.text_field :image %>
+
+<%= f.label :fun_fact, :required => true %>
+<%= f.text_field :fun_fact %>
+
+<%= f.submit %>
+<% end %>

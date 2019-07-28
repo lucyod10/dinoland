@@ -1,0 +1,19 @@
+<h1><%= @species.genus %>!</h1>
+
+<p>Genus: <%= @species.genus %></p>
+<p>Order: <%= @species.order %></p>
+<p>Diet: <%= @species.diet %></p>
+<% if @species.image.present? %>
+  <p>Image: <%= image_tag @species.image, :class => "feature" %></p>
+<% end %>
+<p>Fun Fact: <%= @species.fun_fact %></p>
+<!-- TODO: check that this link works after creating user show pages. Profiles? -->
+<p>Creator: <%= link_to @species.user.username, user_path(@species.user.id) %></p>
+
+<%# Only allow edit and delete button, if the character is @current_user's %>
+<% if @current_user.id == @species.user_id %>
+  <div class="edit">
+    <%= link_to "Edit #{@species.genus}", edit_species_path(@species.id) %>
+    <%= button_to "Delete #{@species.genus}!", @species, :method => "delete", :data => {:confirm => "Are you sure?"} %>
+  </div>
+<% end %>

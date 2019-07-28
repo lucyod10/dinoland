@@ -21,7 +21,17 @@
           <li><%= link_to "Your Characters", session_characters_path %></li>
           <li><%= link_to "New Character", new_character_path %></li>
         </ul>
-        <p>Username: <%= @current_user.username %> <br>
+        <ul>
+          <li><%= link_to "Species", species_index_path %></li>
+          <li><%= link_to "Your Species", session_species_path %></li>
+          <li><%= link_to "New Species", new_species_path %></li>
+        </ul>
+        <ul>
+          <li><%= link_to "Accessories", accessories_path %></li>
+          <li><%= link_to "Your Accessories", session_accessories_path %></li>
+          <li><%= link_to "New Accessory", new_accessory_path %></li>
+        </ul>
+        <p>Username: <%= link_to @current_user.username, user_path(@current_user.id) %> <br>
         <%= link_to "logout", login_path, :method => 'delete' %>
         </p>
 

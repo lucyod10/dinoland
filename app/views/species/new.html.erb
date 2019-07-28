@@ -1,0 +1,12 @@
+<h1>New Species!</h1>
+
+<% if @species.errors.any? %>
+<ol>
+  <% @species.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+  <% end %>
+</ol>
+<% end %>
+
+
+<%= render :partial => 'form' %>

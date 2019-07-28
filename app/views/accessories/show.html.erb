@@ -1,0 +1,16 @@
+<h1><%= @accessory.name %>!</h1>
+
+<p>Accessory: <%= @accessory.name %></p>
+<% if @accessory.image.present? %>
+  <p>Image: <%= image_tag @accessory.image, :class => "feature" %></p>
+<% end %>
+<p>Cost: <%= @accessory.cost %></p>
+<p>Creator: <%= link_to @accessory.user.username, user_path(@accessory.user.id)  %></p>
+
+<%# Only allow edit and delete button, if the accessory is @current_user's %>
+<% if @current_user.id == @accessory.user_id %>
+  <div class="edit">
+    <%= link_to "Edit #{@accessory.name}", edit_accessory_path(@accessory.id) %>
+    <%= button_to "Delete #{@accessory.name}!", @accessory, :method => "delete", :data => {:confirm => "Are you sure?"} %>
+  </div>
+<% end %>

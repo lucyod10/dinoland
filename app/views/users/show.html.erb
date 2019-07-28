@@ -1,0 +1,43 @@
+<h1><%= @user.username %>!</h1>
+
+<p>email: <%= @user.email %></p>
+<p>coins: <%= @user.coins %></p>
+
+<% if @user.characters.count > 0 %>
+<p>Characters: </p>
+<ul>
+  <% @user.characters.each do |character| %>
+      <li><%= link_to character.name, character %>
+      <%= link_to image_tag(character.species.image, :class => "thumb"), character if character.species.image.present? %></li>
+  <% end %>
+</ul>
+<% end %>
+
+<%# if they have species, show them here %>
+<% if @user.species.count > 0 %>
+<p>Species: </p>
+<ul>
+  <% @user.species.each do |species| %>
+      <li><%= link_to species.genus, species %>
+        <%= link_to image_tag(species.image, :class => "thumb"), species if species.image.present?  %></li>
+  <% end %>
+</ul>
+<% end %>
+
+<% if @user.accessories.count > 0%>
+<p>Accessories: </p>
+<ul>
+  <% @user.accessories.each do |accessory| %>
+      <li><%= link_to accessory.name, accessory %>
+        <%= link_to image_tag(accessory.image, :class => "thumb"), accessory if accessory.image.present?%></li>
+  <% end %>
+</ul>
+<% end %>
+
+<%# Only allow edit and delete button, if the user looking is @current_user's %>
+<% if @current_user.id == @user.id %>
+  <div class="edit">
+    <%= link_to "Edit #{@user.username}", edit_user_path(@user.id) %>
+    <%= button_to "Delete #{@user.username}!", @user, :method => "delete", :data => {:confirm => "Are you sure?"} %>
+  </div>
+<% end %>

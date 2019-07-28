@@ -1,0 +1,7 @@
+<h1>All Accessories!</h1>
+
+<% @accessories.each do |accessory| %>
+  <ol><li><%= link_to accessory.name, accessory %></li></ol>
+<% end %>
+
+<%= link_to "New Accessory", new_accessory_path %>

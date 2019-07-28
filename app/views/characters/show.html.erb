@@ -1,5 +1,12 @@
 <h1><%= @character.name %> DINO!</h1>
 
+<p>Name: <%= @character.name %></p>
+<p>Talent: <%= @character.talent %></p>
+<p>Age: <%= @character.age %></p>
+<% if @character.species.image.present? %>
+  <p>Image: <%= image_tag @character.species.image, :class => "feature" %></p>
+<% end %>
+<p>Creator: <%= link_to @character.user.username, user_path(@character.user.id)  %></p>
 
 <%# Only allow edit and delete button, if the character is @current_user's %>
 <% if @current_user.id == @character.user_id %>

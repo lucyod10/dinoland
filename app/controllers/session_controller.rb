@@ -25,6 +25,14 @@ class SessionController < ApplicationController
     @characters = @current_user.characters.all
   end
 
+  def species
+    @species = @current_user.species.all
+  end
+
+  def accessories
+    @accessories = @current_user.accessories.all
+  end
+
   def destroy
     session[:user_id] = nil
     redirect_to login_path

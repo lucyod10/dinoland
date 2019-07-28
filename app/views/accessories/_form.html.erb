@@ -1,0 +1,12 @@
+<%= form_for @accessory do |f| %>
+<%= f.label :name, :autofocus => true, :required => true %>
+<%= f.text_field :name %>
+
+<%= f.label :image, :required => true %>
+<%= f.text_field :image %>
+
+<%= f.label :cost, :required => true %>
+<%= f.number_field :cost %>
+
+<%= f.submit %>
+<% end %>
