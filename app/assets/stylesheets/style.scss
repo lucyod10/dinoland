@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css?family=Gloria+Hallelujah|Open+Sans&display=swap');
+
+* {
+  font-family: 'Open Sans', sans-serif;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  background-color: snow;
+}
+.container {
+  background-color: rgba(255, 255, 255, 1);
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px
+}
+
+nav {
+  text-align: center;
+  padding: 10px;
+  box-sizing: border-box;
+  vertical-align: top;
+}
+
+nav ul {
+  display: inline-block;
+}
+
+h1, h2, h3 {
+  font-family: 'Gloria Hallelujah', cursive;
+}

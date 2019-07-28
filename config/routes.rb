@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
-  get 'users/new'
-  root :to => "users#new"
-  # get "/users/new" => "users#new"
-  resources :users, :only => [:new, :create]
+  root :to => "pages#home"
+  resources :users, :only => [:new, :create, :edit, :update, :index]
+  get "/session/characters" => "session#characters"
+  resources :characters
+  get "/login" => "session#new" # find the session of that browser. unique to each person.
+  post "/login" => "session#create"
+  delete "/login" => "session#destroy"
 end

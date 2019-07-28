@@ -1,0 +1,10 @@
+<h1><%= @character.name %> DINO!</h1>
+
+
+<%# Only allow edit and delete button, if the character is @current_user's %>
+<% if @current_user.id == @character.user_id %>
+  <div class="edit">
+    <%= link_to "Edit #{@character.name}", edit_character_path(@character.id) %>
+    <%= button_to "Delete #{@character.name}!", @character, :method => "delete", :data => {:confirm => "Are you sure?"} %>
+  </div>
+<% end %>

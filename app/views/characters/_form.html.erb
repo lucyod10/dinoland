@@ -1,0 +1,16 @@
+<%= form_for @character do |f| %>
+<%= f.label :name, :autofocus => true, :required => true %>
+<%= f.text_field :name %>
+
+<%= f.label :age, :required => true %>
+<%= f.number_field :age %>
+
+<%= f.label :talent, :required => true %>
+<%= f.text_field :talent %>
+
+<%# TODO: add in heading for species dropdown, that is unselectable %>
+<%= f.label :species_id, :required => true %>
+<%= f.select :species_id, Species.pluck(:genus, :id) %>
+
+<%= f.submit "Create Dino!" %>
+<% end %>

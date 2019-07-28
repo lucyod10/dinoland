@@ -11,8 +11,27 @@
 
   <body>
     <nav>
-      <%= link_to "New User", new_user_path %>
+      <%= link_to "Home", root_path %>
+
+
+
+      <% if @current_user.present? %>
+        <ul>
+          <li><%= link_to "Characters", characters_path %></li>
+          <li><%= link_to "Your Characters", session_characters_path %></li>
+          <li><%= link_to "New Character", new_character_path %></li>
+        </ul>
+        <p>Username: <%= @current_user.username %> <br>
+        <%= link_to "logout", login_path, :method => 'delete' %>
+        </p>
+
+      <% else %>
+        <%= link_to "Sign up", new_user_path %>
+        <%= link_to "sign in", login_path %>
+      <% end %>
     </nav>
-    <%= yield %>
+    <div class="container">
+      <%= yield %>
+    </div>
   </body>
 </html>

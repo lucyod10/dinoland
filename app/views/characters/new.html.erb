@@ -1,0 +1,12 @@
+<h1>New DINO!</h1>
+
+<% if @character.errors.any? %>
+<ol>
+  <% @character.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+  <% end %>
+</ol>
+<% end %>
+
+
+<%= render :partial => 'form' %>
