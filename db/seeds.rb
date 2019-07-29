@@ -44,8 +44,3 @@ u3.characters << c3
 s1.characters << c1
 s2.characters << c2
 s3.characters << c3
-
-# Accessory to Chatacters - many to many
-c1.accessories << a1 << a3
-c2.accessories << a1 << a2
-c3.accessories << a2

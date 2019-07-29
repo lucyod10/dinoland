@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_28_054602) do
+ActiveRecord::Schema.define(version: 2019_07_29_120356) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,11 +24,6 @@ ActiveRecord::Schema.define(version: 2019_07_28_054602) do
     t.integer "user_id"
   end
 
-  create_table "accessories_characters", id: false, force: :cascade do |t|
-    t.integer "accessory_id"
-    t.integer "character_id"
-  end
-
   create_table "characters", force: :cascade do |t|
     t.text "name"
     t.integer "age"
@@ -39,9 +34,13 @@ ActiveRecord::Schema.define(version: 2019_07_28_054602) do
     t.integer "species_id"
   end
 
-  create_table "characters_accessories", id: false, force: :cascade do |t|
-    t.integer "character_id"
+  create_table "posessions", force: :cascade do |t|
     t.integer "accessory_id"
+    t.integer "species_id"
+    t.float "x_pos"
+    t.float "y_pos"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "species", force: :cascade do |t|

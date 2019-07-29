@@ -14,5 +14,5 @@
 # TODO: how do I remove the table from a schema- the one that joins characters and accessories?
 class Accessory < ApplicationRecord
   belongs_to :user, :optional => true
-  has_and_belongs_to_many :characters
+  belongs_to :posession, :optional => true
 end

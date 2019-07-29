@@ -15,5 +15,5 @@
 class Character < ApplicationRecord
   belongs_to :user, :optional => true
   belongs_to :species, :optional => true
-  has_and_belongs_to_many :accessories
+  belongs_to :posession, :optional => true
 end

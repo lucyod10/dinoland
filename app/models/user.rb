@@ -10,6 +10,7 @@
 #  updated_at      :datetime         not null
 #  password_digest :string
 #  admin           :boolean          default(FALSE)
+#  profile_image   :text
 #
 
 class User < ApplicationRecord
