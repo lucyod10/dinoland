@@ -1,8 +1,9 @@
 User.destroy_all
 puts "Creating Users"
-u1 = User.create :email => "wow@wow.com", :username => "wow"
-u2 = User.create :email => "cool@cool.com", :username => "cool"
-u3 = User.create :email => "rad@rad.com", :username => "rad"
+u1 = User.create :email => "wow@wow.com", :username => "wow", :password => "chicken", :coins => 100, :profile_image => "https://previews.123rf.com/images/ksuklein/ksuklein1705/ksuklein170500095/79142510-cute-green-dinosaur-cartoon-dino-character-isolated-vector-illustration-for-kids.jpg"
+u2 = User.create :email => "cool@cool.com", :username => "cool", :password => "chicken", :coins => 100, :profile_image => "https://images-na.ssl-images-amazon.com/images/I/717HdTD-HhL._SL1500_.jpg"
+u3 = User.create :email => "rad@rad.com", :username => "rad", :password => "chicken", :coins => 100, :profile_image => "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQk2wUIkmHsWcCOAmu_urFK-gsvn6cYu2k8QEGPDRQ3pp-YDXpU"
+u4 = User.create :email => "admin@dinoland.com", :username => "admin", :password => "chicken", :admin => true, :coins => 1000, :profile_image => "https://images-na.ssl-images-amazon.com/images/I/41LUoRjxmIL.jpg"
 
 Accessory.destroy_all
 puts "Creating Accessories"
@@ -46,5 +47,5 @@ s3.characters << c3
 
 # Accessory to Chatacters - many to many
 c1.accessories << a1 << a3
-c2.accessories << a1 << a3 << a2
+c2.accessories << a1 << a2
 c3.accessories << a2
