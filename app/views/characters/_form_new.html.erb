@@ -1,0 +1,36 @@
+<%= form_for @character do |f| %>
+<%= f.label :name, :autofocus => true, :required => true %>
+<%= f.text_field :name %>
+
+<%= f.label :age, :required => true %>
+<%= f.number_field :age %>
+
+<%= f.label :talent, :required => true %>
+<%= f.text_field :talent %>
+
+<%# TODO: add in heading for species dropdown, that is unselectable %>
+<%= f.label :species_id, :required => true %>
+
+<%# Convert hash from controller that links species id to images into json. %>
+<script>
+  const speciesImages = <%== @species_images.to_json %>;
+</script>
+
+<%= f.select :species_id, Species.pluck(:genus, :id) %>
+
+<%# TODO: add in accessories to add %>
+<%# TODO: add in checker for coins, otherwise throw error. %>
+<%# TODO: create accessories menu that shows coin values. %>
+<%# TODO: Display users coins on screen. %>
+
+<% @accessories.each do |a| %>
+  <%= accessory_id = "accessory_" + a.id.to_s %>
+  <%= f.check_box :species_id, :id => accessory_id %>
+  <label for= <%= accessory_id %>>
+  <%= image_tag a.image, :class => "thumb" %>
+  </label>
+<% end %>
+
+
+<%= f.submit "Create Dino!" %>
+<% end %>

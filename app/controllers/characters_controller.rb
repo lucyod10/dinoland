@@ -18,11 +18,12 @@ class CharactersController < ApplicationController
       @species_images[ s.id ] = s.image
     end
 
+    # Create list of all accessories to choose from.
+    @accessories = Accessory.all
     @character = Character.new
   end
 
   def create
-``
     @character = Character.create params_character
     @character.user_id = @current_user.id
     @current_user.characters << @character
