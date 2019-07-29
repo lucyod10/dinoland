@@ -1,8 +1,6 @@
 class UsersController < ApplicationController
-  # TODO: add in way for user to edit coins and username and profile pic.
   before_action :check_for_login, :only => [:edit, :update]
   before_action :logged_in_send_home, :only => [:new, :create]
-  # before_action :check_for_admin, :only => [:index]
 
   def index
     @users = User.all

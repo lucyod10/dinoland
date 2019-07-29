@@ -7,7 +7,6 @@
   <p>Image: <%= image_tag @species.image, :class => "feature" %></p>
 <% end %>
 <p>Fun Fact: <%= @species.fun_fact %></p>
-<!-- TODO: check that this link works after creating user show pages. Profiles? -->
 <p>Creator: <%= link_to @species.user.username, user_path(@species.user.id) %></p>
 
 <p>Number of Characters using: <%= @num_characters.count  %></p>

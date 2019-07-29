@@ -33,6 +33,20 @@ class SessionController < ApplicationController
     @accessories = @current_user.accessories.all
   end
 
+  def coins
+    @coins = @current_user.coins
+  end
+
+  def add_coins
+    if @current_user.coins.nil?
+      @current_user.coins = 50
+    else
+      @current_user.coins += 50
+    end
+    @current_user.save
+    redirect_to :coins
+  end
+
   def destroy
     session[:user_id] = nil
     redirect_to login_path

@@ -10,6 +10,12 @@
 
 <%# TODO: add in heading for species dropdown, that is unselectable %>
 <%= f.label :species_id, :required => true %>
+
+<%# Convert hash from controller that links species id to images into json. %>
+<script>
+  const speciesImages = <%== @species_images.to_json %>;
+</script>
+
 <%= f.select :species_id, Species.pluck(:genus, :id) %>
 
 <%= f.submit "Create Dino!" %>

@@ -49,3 +49,35 @@ h1, h2, h3 {
   max-width: 4em;
   max-height: 4em;
 }
+
+label,
+input,
+button {
+  display: block;
+  margin: 10px 0;
+}
+
+input {
+  padding: 5px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.create_character_grid {
+  display: grid;
+  grid-template-columns: 20% 80%;
+  box-sizing: border-box;
+}
+
+.character_form {
+  padding-right: 10px;
+}
+
+.character_edit {
+  padding-left: 10px;
+}
+
+
+.character_edit img {
+  max-width: 100%;
+}
