@@ -1,0 +1,35 @@
+
+<%# TODO: add in accessories to add %>
+<%# TODO: add in checker for coins, otherwise throw error. %>
+<%# TODO: create accessories menu that shows coin values. %>
+<%# TODO: Display users coins on screen. %>
+
+<script>
+  const accessoryImages = <%== @accessory_images.to_json %>;
+</script>
+
+<%= form_for @character do |f| %>
+  <% @accessories.each do |a| %>
+    <div class="accessory_item">
+      <%= accessory_id = "accessory_" + a.id.to_s %>
+      <%= f.check_box :species_id, :id => accessory_id, :data => a.id %>
+      <label for= <%= accessory_id %>>
+      <%= image_tag a.image, :class => "thumb" %>
+      </label>
+    </div>
+  <% end %>
+<% end %>
+
+<div>
+    <p>Click link to toggle throbble. Drag link to sort</p>
+    <ul>
+        <li><a href="#">Some link #1</a></li>
+        <li><a href="#">Some link #2</a></li>
+        <li><a href="#">Some link #3</a></li>
+        <li><a href="#">Some link #4</a></li>
+    </ul>
+
+    <div id="throbble">
+    <img src="http://dummyimage.com/100x50/000/fff&text=Throbble!">
+    </div>
+</div>

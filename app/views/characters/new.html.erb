@@ -8,11 +8,14 @@
 </ol>
 <% end %>
 
+
 <div class="create_character_grid">
   <div class="character_form">
     <%= render :partial => 'form_new' %>
   </div>
   <div class="character_edit">
+    <div class="accessories_selected" id="accessories_selected"></div>
     <%= image_tag @default_image, :id => "character_edit" %>
   </div>
 </div>
+<%= render :partial => 'form_accessories' %>

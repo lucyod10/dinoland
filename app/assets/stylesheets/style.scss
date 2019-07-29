@@ -81,3 +81,20 @@ input {
 .character_edit img {
   max-width: 100%;
 }
+
+.accessory_item {
+  display: inline-block;
+}
+
+.accessories_selected {
+  display: block;
+  width: 100%;
+  background-color: lavender;
+  height: 80px;
+}
+
+.accessories_selected img {
+  height: 80px;
+  width: 80px;
+  display: inline-block;
+}

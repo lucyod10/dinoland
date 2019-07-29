@@ -19,7 +19,13 @@ class CharactersController < ApplicationController
     end
 
     # Create list of all accessories to choose from.
+    @accessory_images = {}
     @accessories = Accessory.all
+    @accessories.each do |a|
+      @default_image = a.image if @default_image.nil?
+      @accessory_images[ a.id ] = a.image
+    end
+
     @character = Character.new
   end
 

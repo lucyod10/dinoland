@@ -18,19 +18,5 @@
 
 <%= f.select :species_id, Species.pluck(:genus, :id) %>
 
-<%# TODO: add in accessories to add %>
-<%# TODO: add in checker for coins, otherwise throw error. %>
-<%# TODO: create accessories menu that shows coin values. %>
-<%# TODO: Display users coins on screen. %>
-
-<% @accessories.each do |a| %>
-  <%= accessory_id = "accessory_" + a.id.to_s %>
-  <%= f.check_box :species_id, :id => accessory_id %>
-  <label for= <%= accessory_id %>>
-  <%= image_tag a.image, :class => "thumb" %>
-  </label>
-<% end %>
-
-
 <%= f.submit "Create Dino!" %>
 <% end %>
