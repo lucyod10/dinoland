@@ -18,7 +18,7 @@ $(document).ready(() => {
   $("select#character_species_id").on("change", function () {
     const species_id = $(this).val();
     const image = speciesImages[ species_id ];
-    console.log(image);
+    $("#character_edit").attr("class", "character_feature");
     $("#character_edit").attr("src", image);
   }).trigger("change");
 
@@ -29,7 +29,7 @@ $(document).ready(() => {
   let renderAccessory = false;
 
   // When you click on an input, check all the inputs, and remake the array.
-  $("input[type=checkbox]").on("click", function () {
+  $("input[type=checkbox]").on("click", function (e) {
     // Find accessories currently rendered to compare to the checked list.
     let allAccessoriesRendered = $(".accessories_selected");
 
@@ -43,26 +43,59 @@ $(document).ready(() => {
           // If the checked icon is already rendered, skip.
         }
         else {
-          addAccessory(imageURL, accessoryId);
+          // check if they have enough money to add
+          let tempCoins = Number($("#userTempCoins").text());
+          let cost = Number(this.getAttribute("data"));
+
+          if (tempCoins > cost) {
+            console.log("buy!")
+            tempCoins -= cost;
+            // update UI
+            $("#userTempCoins").text(tempCoins)
+            // update hidden field
+            $("#userCoins").val(tempCoins);
+            addAccessory(imageURL, accessoryId);
+            this.parentNode.classList.remove("error");
+          }
+          else {
+            // TODO: make the unchecking nicer for when the user gets enough coins.
+            // TODO: make a separate function which loops through the accessories every time the tempCoin value changes and re-renders backgrounds, as well as changing click events.
+            console.error("not enough coins, sorry");
+            this.parentNode.classList.add("error");
+            // uncheck it.
+            e.preventDefault();
+          }
           // break out of loop so you don't add multiples.
           return;
         }
+        this.parentNode.classList.remove("error");
       }
     }
     else {
+      this.parentNode.classList.remove("error");
       const uniqueId = "#accessoryRendered" + accessoryId;
       removeAccessory(uniqueId);
+
+      // add the money back into their account
+      let tempCoins = Number($("#userTempCoins").text());
+      let cost = Number(this.getAttribute("data"));
+      tempCoins += cost;
+      // update UI
+      $("#userTempCoins").text(tempCoins)
+      // update hidden field
+      $("#userCoins").val(tempCoins);
     }
   });
 
   function addAccessory (imageURL, accessoryId) {
-    let icon = $('<img class="accessories_selected">');
+    let icon = $('<img class="character_accessory">');
     icon.attr("src", imageURL);
     icon.attr("value", accessoryId);
     const uniqueId = "accessoryRendered" + accessoryId;
     icon.attr("id", uniqueId);
 
     icon.appendTo("#accessories_selected");
+    // change the X and Y values filtering to the database every time a user stops dragging.
     icon.on("click", function () {
       const left = icon.css("left");
       const top = icon.css("top");
@@ -82,15 +115,15 @@ $(document).ready(() => {
     $(uniqueId).remove();
   }
 
+  function changeCoins (cost) {
+    let currentCoins = $("#userTempCoins").val();
+    let newCoins = currentCoins - cost;
+    $("#userTempCoins").val(newCoins);
+    $("#userCoins").val(newCoins);
+  }
 
 
 // DRAGGING ///////////////////////////////////////////////////////////////////
-// Detect when an image is being dragged, when mouseup, find the associated hidden form and set the values.
-function onMouseUp (id, axis) {
-  console.log("mouseup");
-  // positions_29_x
-  $("#positions_" + id + "_" + axis).val("")
-}
 
   $(function() {
     var isDragging = false;

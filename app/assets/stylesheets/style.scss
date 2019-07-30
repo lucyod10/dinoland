@@ -91,13 +91,7 @@ input {
 }
 
 .character_edit {
-  padding-left: 10px;
   position: relative;
-}
-
-
-.character_edit img {
-  max-width: 100%;
 }
 
 .accessory_item {
@@ -114,8 +108,7 @@ input {
   height: 80px;
 }
 
-.accessories_selected img {
-  height: 80px;
-  width: 80px;
-  display: inline-block;
+.error {
+  background-color: red;
+  color: maroon;
 }

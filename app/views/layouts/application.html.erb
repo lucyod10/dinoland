@@ -11,12 +11,12 @@
 
   <body>
     <nav>
-      <%= link_to "Home", root_path %>
+      <%= link_to "Home", root_path %> |
 
 
 
       <% if @current_user.present? %>
-        <%= link_to "All Users", users_path %>
+        <%= link_to "All Users", users_path %> |
         <%= link_to "Add coins", coins_path %>
         <ul>
           <li><%= link_to "Characters", characters_path %></li>
@@ -34,6 +34,7 @@
           <li><%= link_to "New Accessory", new_accessory_path %></li>
         </ul>
         <p>Username: <%= link_to @current_user.username, user_path(@current_user.id) %> <br>
+          Coins: <%= @current_user.coins %> <br>
         <%= link_to "logout", login_path, :method => 'delete' %>
         </p>
 

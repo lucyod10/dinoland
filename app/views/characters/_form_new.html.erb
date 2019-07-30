@@ -18,21 +18,23 @@
 
 <%= f.select :species_id, Species.pluck(:genus, :id) %>
 
-
-<%# TODO: add in accessories to add %>
-<%# TODO: add in checker for coins, otherwise throw error. %>
-<%# TODO: create accessories menu that shows coin values. %>
-<%# TODO: Display users coins on screen. %>
-
 <script>
   const accessoryImages = <%== @accessory_images.to_json %>;
 </script>
 
-  <%= collection_check_boxes(:accessory, :id, Accessory.all, :id, :name) %>
+
+<p>Your current coins: <span id="userTempCoins"><%= @coins %></span></p>
+
+  <%= collection_check_boxes(:accessory, :id, Accessory.all, :id, :name) do |b| %>
+    <%= b.label(class: "check_box") { b.check_box(class: "check_box", data: "#{b.object.cost}") + b.object.cost.to_s + image_tag(b.object.image, :class => "icon") } %>
+ <% end %>
+
+
   <% Accessory.all.each do |a| %>
     <%= hidden_field_tag "positions[#{ a.id }_x]", 30 %>
     <%= hidden_field_tag "positions[#{ a.id }_y]", 500 %>
   <% end %>
 
+<%= hidden_field_tag "userCoins", 0 %>
 <%= f.submit "Create Dino!" %>
 <% end %>

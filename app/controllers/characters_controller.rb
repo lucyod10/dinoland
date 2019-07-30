@@ -9,6 +9,7 @@ class CharactersController < ApplicationController
   end
 
   def new
+    @coins = @current_user.coins
     @character = Character.new
     # Create a hash to link species id with their image
     # TODO: make default image something else - "choose dino" or something.
@@ -26,9 +27,6 @@ class CharactersController < ApplicationController
       @default_image = a.image if @default_image.nil?
       @accessory_images[ a.id ] = a.image
     end
-
-    # checked accessories added to pivot table
-
 
   end
 
@@ -61,13 +59,16 @@ class CharactersController < ApplicationController
           end
         end
 
+
         new_posession = Posession.create :accessory_id => p, :character_id => @character.id, :x_pos => @x_pos, :y_pos => @y_pos
         @character.posessions << new_posession
       end
+
+      # change users coins based on accessories selected.
+      @coins = params[:userCoins]
+      @current_user.coins = @coins
+      @current_user.save
     end
-
-
-
 
     # @TODO change to character index path
     redirect_to character_path(@character)

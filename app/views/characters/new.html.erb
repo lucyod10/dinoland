@@ -1,20 +1,62 @@
 <h1>New DINO!</h1>
 
-<% if @character.errors.any? %>
-<ol>
-  <% @character.errors.full_messages.each do |message| %>
-    <li><%= message %></li>
-  <% end %>
-</ol>
-<% end %>
-
-
 <div class="create_character_grid">
   <div class="character_form">
-  <%= render :partial => 'form_new' %>
-  </div>
-  <div class="character_edit">
-    <div class="accessories_selected" id="accessories_selected"></div>
-    <%= image_tag @default_image, :id => "character_edit" %>
-  </div>
+    <%= form_for @character do |f| %>
+
+    <% if @character.errors.any? %>
+    <ol>
+      <% @character.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ol>
+    <% end %>
+
+    <%= f.label :name, :autofocus => true, :required => true %>
+    <%= f.text_field :name %>
+
+    <%= f.label :age, :required => true %>
+    <%= f.number_field :age %>
+
+    <%= f.label :talent, :required => true %>
+    <%= f.text_field :talent %>
+
+    <%# TODO: add in heading for species dropdown, that is unselectable %>
+    <%= f.label :species_id, :required => true %>
+
+    <%# Convert hash from controller that links species id to images into json. %>
+    <script>
+      const speciesImages = <%== @species_images.to_json %>;
+    </script>
+
+    <%= f.select :species_id, Species.pluck(:genus, :id) %>
+    </div>
+    <div class="character_edit">
+      <div class="accessories_selected" id="accessories_selected"></div>
+      <%= image_tag @default_image, :id => "character_edit" %>
+    </div>
+
+    <script>
+      const accessoryImages = <%== @accessory_images.to_json %>;
+    </script>
+
+
+    <p>Your current coins: <span id="userTempCoins"><%= @coins %></span></p>
+
+      <%= collection_check_boxes(:accessory, :id, Accessory.all, :id, :name) do |b| %>
+        <%= b.label(class: "check_box") { b.check_box(class: "check_box", data: "#{b.object.cost}") + b.object.cost.to_s + image_tag(b.object.image, :class => "icon") } %>
+     <% end %>
+
+
+      <% Accessory.all.each do |a| %>
+        <%= hidden_field_tag "positions[#{ a.id }_x]", 30 %>
+        <%= hidden_field_tag "positions[#{ a.id }_y]", 500 %>
+      <% end %>
+
+    <%= hidden_field_tag "userCoins", 0 %>
+    <%= f.submit "Create Dino!" %>
+    <% end %>
+
+
+
 </div>
