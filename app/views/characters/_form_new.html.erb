@@ -18,5 +18,21 @@
 
 <%= f.select :species_id, Species.pluck(:genus, :id) %>
 
+
+<%# TODO: add in accessories to add %>
+<%# TODO: add in checker for coins, otherwise throw error. %>
+<%# TODO: create accessories menu that shows coin values. %>
+<%# TODO: Display users coins on screen. %>
+
+<script>
+  const accessoryImages = <%== @accessory_images.to_json %>;
+</script>
+
+  <%= collection_check_boxes(:accessory, :id, Accessory.all, :id, :name) %>
+  <% Accessory.all.each do |a| %>
+    <%= hidden_field_tag "positions[#{ a.id }_x]", 30 %>
+    <%= hidden_field_tag "positions[#{ a.id }_y]", 500 %>
+  <% end %>
+
 <%= f.submit "Create Dino!" %>
 <% end %>

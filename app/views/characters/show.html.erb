@@ -3,9 +3,8 @@
 <p>Name: <%= @character.name %></p>
 <p>Talent: <%= @character.talent %></p>
 <p>Age: <%= @character.age %></p>
-<% if @character.species.image.present? %>
-  <p>Image: <%= image_tag @character.species.image, :class => "feature" %></p>
-<% end %>
+<%= render :partial => 'show_character' %>
+
 <p>Creator: <%= link_to @character.user.username, user_path(@character.user.id)  %></p>
 
 

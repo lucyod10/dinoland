@@ -1,0 +1,15 @@
+<div class="character_container">
+
+  <% if @character.species.image.present?  %>
+    <% id = "feature_" + @character.id.to_s %>
+    <%= image_tag @character.species.image, :class => "character_feature", :id => id %>
+  <% end %>
+
+  <% if @character.posessions.present? %>
+    <% @character.posessions.each do |p| %>
+      <% id = p.accessory_id %>
+      <% acc = Accessory.find id %>
+        <%= posession = image_tag acc.image, :class => "character_accessory", :style => "position: absolute; top: #{p.x_pos}px; left: #{p.y_pos}px;" %>
+    <% end %>
+  <% end %>
+</div>

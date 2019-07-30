@@ -9,6 +9,7 @@ class CharactersController < ApplicationController
   end
 
   def new
+    @character = Character.new
     # Create a hash to link species id with their image
     # TODO: make default image something else - "choose dino" or something.
     @species_images = {}
@@ -26,19 +27,55 @@ class CharactersController < ApplicationController
       @accessory_images[ a.id ] = a.image
     end
 
-    @character = Character.new
+    # checked accessories added to pivot table
+
+
   end
 
   def create
+    # create the character
     @character = Character.create params_character
     @character.user_id = @current_user.id
     @current_user.characters << @character
+
+    # find the checkboxes from params accessory[id][]
+    # inside this will be an array of checked accessories.
+    # for each of these, create a new Posession
+    @posessions = params[:accessory][:id]
+    @posessions.each do |p|
+      if p.present?
+        # TODO: find x and y values for each posession.
+        # find the x and y coordinates saved
+        @positions = params[:positions]
+        @x_pos = 0
+        @y_pos = 0
+
+        @positions.each do |key, value|
+          if key.include? p
+            # they match, find the X and Y values.
+            if key.include? "x"
+              @x_pos = value
+            elsif key.include? "y"
+              @y_pos = value
+            end
+          end
+        end
+
+        new_posession = Posession.create :accessory_id => p, :character_id => @character.id, :x_pos => @x_pos, :y_pos => @y_pos
+        @character.posessions << new_posession
+      end
+    end
+
+
+
+
     # @TODO change to character index path
     redirect_to character_path(@character)
   end
 
   def show
     @character = Character.find params[:id]
+    @accessories = Accessory.all
   end
 
   def edit
@@ -67,4 +104,5 @@ class CharactersController < ApplicationController
   def params_character
     params.require(:character).permit(:name, :age, :talent, :user_id, :species_id)
   end
+
 end

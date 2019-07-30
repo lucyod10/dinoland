@@ -11,7 +11,7 @@ body {
 }
 .container {
   background-color: rgba(200, 255, 200, 1);
-  max-width: 700px;
+  max-width: 960px;
   margin: 0 auto;
   padding: 20px
 }
@@ -35,8 +35,25 @@ h1, h2, h3 {
   max-width: 30em;
 }
 
+.character_container {
+  max-width: 600px;
+  position: relative;
+}
+
+.character_feature {
+  width: 600px;
+}
+
+.character_accessory {
+  width: 100px;
+}
+
 .thumb {
   max-width: 10em;
+}
+
+.icon {
+  max-width: 5em;
 }
 
 .profile_image {
@@ -65,7 +82,7 @@ input {
 
 .create_character_grid {
   display: grid;
-  grid-template-columns: 20% 80%;
+  grid-template-columns: 35% 65%;
   box-sizing: border-box;
 }
 
@@ -75,6 +92,7 @@ input {
 
 .character_edit {
   padding-left: 10px;
+  position: relative;
 }
 
 
@@ -87,9 +105,12 @@ input {
 }
 
 .accessories_selected {
+  position: absolute;
+  top: 0;
+  left: 0;
   display: block;
   width: 100%;
-  background-color: lavender;
+  box-sizing: border-box;
   height: 80px;
 }
 
