@@ -1,17 +1,22 @@
-<h1><%= @character.name %> DINO!</h1>
+<div class="centerContent">
 
-<p>Name: <%= @character.name %></p>
-<p>Talent: <%= @character.talent %></p>
-<p>Age: <%= @character.age %></p>
-<%= render :partial => 'show_character' %>
-
-<p>Creator: <%= link_to @character.user.username, user_path(@character.user.id)  %></p>
-
-
-<%# Only allow edit and delete button, if the character is @current_user's %>
-<% if @current_user.id == @character.user_id || @current_user.admin == true %>
-  <div class="edit">
-    <%= link_to "Edit #{@character.name}", edit_character_path(@character.id) %>
-    <%= button_to "Delete #{@character.name}!", @character, :method => "delete", :data => {:confirm => "Are you sure?"} %>
+  <h1><%= @character.name %></h1>
+  <div class="characterDisplay">
+    <%= render :partial => 'show_character' %>
   </div>
-<% end %>
+
+  <div class="characterDescription">
+    <p><%= @character.name %> is a <%= @character.species.genus %> from the <%= @character.species.order %> family. They are particularly good at <%= @character.talent %>, especially for the ripe age of <%= @character.age %>.</p>
+
+    <p><%= link_to @character.user.username, user_path(@character.user.id)  %> created this dino.</p>
+
+  </div>
+
+  <%# Only allow edit and delete button, if the character is @current_user's %>
+  <% if @current_user.id == @character.user_id || @current_user.admin == true %>
+    <div class="edit">
+      <%= link_to "Edit #{@character.name}", edit_character_path(@character.id) %>
+      <%= button_to "Delete #{@character.name}!", @character, :method => "delete", :data => {:confirm => "Are you sure?"} %>
+    </div>
+  <% end %>
+</div>

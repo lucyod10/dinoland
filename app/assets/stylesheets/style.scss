@@ -2,41 +2,78 @@
 
 * {
   font-family: 'Open Sans', sans-serif;
+  color: #837b6f;
+}
+
+html {
+  margin: 0;
+  min-height: 100%;
 }
 
 body {
   padding: 0;
   margin: 0;
-  background-color: snow;
+  min-height: 100%;
+  background-image: linear-gradient(#ede8e2, #d6d3cc);
+  box-sizing: border-box;
 }
+
 .container {
-  background-color: rgba(200, 255, 200, 1);
-  max-width: 960px;
+  max-width: 700px;
   margin: 0 auto;
   padding: 20px
 }
 
 nav {
-  text-align: center;
-  padding: 10px;
-  box-sizing: border-box;
-  vertical-align: top;
+  text-align: right;
+  padding: 30px;
 }
 
-nav ul {
-  display: inline-block;
+nav a {
+  padding-right: 20px;
+  text-decoration: none;
+}
+nav a:last-of-type {
+  padding-right: 0px;
 }
 
-h1, h2, h3 {
+
+nav .navGrid {
+  display: grid;
+  grid-template-columns: 30% 70%;
+}
+
+nav .logo {
+  font-family: 'Gloria Hallelujah', cursive;
+  font-size: 3em;
+  text-align: left;
+}
+
+nav .links {
+
+}
+
+nav .profileIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+}
+
+h1, h2, h3, .title {
   font-family: 'Gloria Hallelujah', cursive;
 }
+
+.title {
+  font-size: 2em;
+}
+
 
 .feature {
   max-width: 30em;
 }
 
 .character_container {
-  max-width: 600px;
+  width: 600px;
   position: relative;
 }
 
@@ -58,8 +95,8 @@ h1, h2, h3 {
 
 .profile_image {
   border-radius: 100%;
-  max-width: 10em;
-  max-height: 10em;
+  max-width: 3em;
+  max-height: 3em;
 }
 
 .profile_image .thumb {
@@ -82,12 +119,115 @@ input {
 
 .create_character_grid {
   display: grid;
-  grid-template-columns: 35% 65%;
+  grid-template-rows: auto auto auto auto;
   box-sizing: border-box;
 }
 
+.create_character_grid input[type="text"],
+.create_character_grid input[type="number"],
+.create_character_grid select {
+  border-radius: 4px;
+  width: 100%;
+  border: none;
+  background-color: #d5d1cb;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  font-size: 1.1em;
+  padding: 5px 10px;
+}
+
+.create_character_grid input[type="submit"] {
+  border-radius: 4px;
+  padding: 5px 20px;
+  border: none;
+  color: #d5d1cb;
+  background-color: #a1988c;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+  font-family: 'Gloria Hallelujah', cursive;
+  font-size: 1.4em;
+  margin: 30px auto;
+}
+
+.create_character_grid input[type="submit"]:hover {
+  color: #d5d1cb;
+  background-color: #857c6f;
+}
+
+
+
 .character_form {
-  padding-right: 10px;
+  margin: 0px 30%;
+  margin-bottom: 40px;
+}
+
+.shopTitle {
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+.shopTitle .title {
+  text-align: left;
+}
+
+.coin {
+  font-size: 2em;
+}
+
+.coin img {
+  width: 1em;
+  height: 1em;
+}
+
+.coinCount {
+  text-align: right;
+  font-size: 2em;
+}
+
+.coinCount img {
+  width: 1em;
+}
+
+
+.character_shop_grid {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  justify-content:space-around;
+}
+
+.character_shop input {
+  display: none;
+}
+
+.character_shop label {
+  cursor: pointer;
+}
+
+.accessory_checkbox {
+  border-radius: 5px;
+  background-color: #d3cfc9;
+  width: 100px;
+  height: 100px;
+  position:relative;
+  box-shadow: 0 0 20px rgba(133, 124, 111, 0.5);
+}
+
+.accessory_checkbox .accessory_checkbox_cost {
+  position:absolute;
+  bottom: -0.8em;
+  right: 0;
+}
+
+.accessory_checkbox .accessory_checkbox_cost img {
+  width: 1em;
+  height: 1em;
+}
+
+.accessory_checkbox:hover {
+  box-shadow: inset 0 0 40px rgba(133, 124, 111, 0.3), 0 0 20px rgba(133, 124, 111, 0.5);
+}
+
+.character_shop input:checked ~ .accessory_checkbox {
+  box-shadow: inset 0 0 40px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.7);
 }
 
 .character_edit {
@@ -109,6 +249,57 @@ input {
 }
 
 .error {
-  background-color: red;
+  box-shadow: inset 0 0 40px rgba(255, 40, 40, 0.5);
   color: maroon;
+}
+
+.centerContent {
+  text-align: center;
+}
+
+.characterScroller {
+  width: 100%;
+  height: 300px;
+  border-radius: 10px;
+  background-color: #e9e6e1;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.characterScrollerInner {
+  display: flex;
+
+  width: auto;
+  height: 250px;
+}
+
+.characterScroller img {
+  max-width: 400px;
+  height: 220px;
+  margin: 30px;
+}
+
+.playGame {
+  margin-top: 50px;
+}
+.playGame img {
+  max-width: 200px;
+}
+
+.characterSelected {
+  background-image: radial-gradient(white 0%, transparent 80%);
+}
+
+.characterDescription {
+  padding: 0 20%;
+}
+
+.characterDisplay {
+  margin: 0 auto;
+  width: 600px;
+}
+
+.profile_grid {
+  display: grid;
+  grid-template-columns: auto auto auto;
 }

@@ -17,7 +17,7 @@ $(document).ready(() => {
 
   $("select#character_species_id").on("change", function () {
     const species_id = $(this).val();
-    const image = speciesImages[ species_id ];
+    const image = "/assets/" + speciesImages[ species_id ];
     $("#character_edit").attr("class", "character_feature");
     $("#character_edit").attr("src", image);
   }).trigger("change");
@@ -34,7 +34,7 @@ $(document).ready(() => {
     let allAccessoriesRendered = $(".accessories_selected");
 
     const accessoryId = this.getAttribute("value");
-    const imageURL = accessoryImages[accessoryId]
+    const imageURL = "/assets/" + accessoryImages[accessoryId];
 
     if ($(this).is(':checked')) {
       // Loop through currently rendered accessories, checking against the checked accessories.

@@ -4,44 +4,49 @@
     <title>Dinoland</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <%= cloudinary_js_config %>
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
   </head>
 
   <body>
     <nav>
-      <%= link_to "Home", root_path %> |
+      <div class="navGrid">
+        <div class="logo">
+          Dinoland
+        </div>
+        <div class="links">
+          <ul>
 
+            <li><%= link_to "Home", root_path %></li>
 
+          <% if @current_user.present? %>
+            <li><%= link_to "Create!", new_character_path %></li>
+            <li><%= link_to "Boards" %></li>
+            <ul>
+              <li><%= link_to "Characters", characters_path %></li>
+              <li><%= link_to "Species", species_index_path %></li>
+              <li><%= link_to "Accessories", accessories_path %></li>
+              <%= link_to "All Users", users_path %>
+            </ul>
+            <li><%= link_to @current_user.username, user_path(@current_user.id) %>
+            <%= image_tag @current_user.profile_image, :class => "profileIcon" %></li>
+            <ul>
+              <li>Coins: <%= @current_user.coins %></li>
+              <li><%= link_to "Add coins", coins_path %></li>
+              <li><%= link_to "Your Characters", session_characters_path %></li>
+              <li><%= link_to "Your Species", session_species_path %></li>
+              <li><%= link_to "Your Accessories", session_accessories_path %></li>
+              <li></li>
+              <%= link_to "logout", login_path, :method => 'delete' %>
+            </ul>
 
-      <% if @current_user.present? %>
-        <%= link_to "All Users", users_path %> |
-        <%= link_to "Add coins", coins_path %>
-        <ul>
-          <li><%= link_to "Characters", characters_path %></li>
-          <li><%= link_to "Your Characters", session_characters_path %></li>
-          <li><%= link_to "New Character", new_character_path %></li>
-        </ul>
-        <ul>
-          <li><%= link_to "Species", species_index_path %></li>
-          <li><%= link_to "Your Species", session_species_path %></li>
-          <li><%= link_to "New Species", new_species_path %></li>
-        </ul>
-        <ul>
-          <li><%= link_to "Accessories", accessories_path %></li>
-          <li><%= link_to "Your Accessories", session_accessories_path %></li>
-          <li><%= link_to "New Accessory", new_accessory_path %></li>
-        </ul>
-        <p>Username: <%= link_to @current_user.username, user_path(@current_user.id) %> <br>
-          Coins: <%= @current_user.coins %> <br>
-        <%= link_to "logout", login_path, :method => 'delete' %>
-        </p>
-
-      <% else %>
-        <%= link_to "Sign up", new_user_path %>
-        <%= link_to "sign in", login_path %>
-      <% end %>
+          <% else %>
+            <li><%= link_to "Sign up", new_user_path %></li>
+            <li><%= link_to "sign in", login_path %></li>
+          <% end %>
+        </div>
+      </div>
     </nav>
     <div class="container">
       <%= yield %>

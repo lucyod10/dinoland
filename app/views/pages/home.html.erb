@@ -1,1 +1,18 @@
-<h1>Home</h1>
+<div class="centerContent">
+  <h1>Welcome to Dinoland!</h1>
+
+  <div class="characterScroller">
+    <div class="characterScrollerInner" id="characterScrollerInner">
+      <%= image_tag "dino_02.png", :class => "characterImage"  %>
+      <%= image_tag "dino_03.png", :class => "characterImage"  %>
+      <%= image_tag "dino_02.png", :class => "characterImage"  %>
+
+
+    </div>
+  </div>
+
+
+  <div class="playGame">
+    <%= link_to image_tag("dino_02.png"), coins_path %>
+  </div>
+</div>

@@ -1,4 +1,4 @@
-<%= form_for @species do |f| %>
+<%= form_for @species, :html => {:multipart => true} do |f| %>
 <%= f.label :genus, :autofocus => true, :required => true %>
 <%= f.text_field :genus %>
 
@@ -9,7 +9,7 @@
 <%= f.text_field :diet %>
 
 <%= f.label :image, :required => true %>
-<%= f.text_field :image %>
+<%= f.cl_image_upload :image %>
 
 <%= f.label :fun_fact, :required => true %>
 <%= f.text_field :fun_fact %>

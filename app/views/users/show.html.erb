@@ -1,49 +1,51 @@
-<h1><%= @user.username %>!</h1>
-<% if @user.admin == true %>
-<h2>Admin</h2>
-<% end %>
+<div class="centerContent">
+    <h1><%= @user.username %>!</h1>
+    <% if @user.admin == true %>
+    <h3>Admin</h3>
+    <% end %>
 
-<%= image_tag @user.profile_image, :class => "profile_image" if @user.profile_image.present?%>
-<p>email: <%= @user.email  if @user.email.present?%></p>
-<p>coins: <%= @user.coins  if @user.coins.present?%></p>
+    <%= image_tag @user.profile_image, :class => "profile_image" if @user.profile_image.present?%>
+    <p class="coin"><%= image_tag "coin.png" %><%= @user.coins  if @user.coins.present?%></p>
 
-<% if @user.characters.count > 0 %>
-<p>Characters: </p>
-<ul>
-  <% @user.characters.each do |character| %>
-      <li><%= link_to character.name, character %>
-      <%= link_to image_tag(character.species.image, :class => "thumb"), character if character.species.image.present? %></li>
-  <% end %>
-</ul>
-<% end %>
-
-<%# if they have species, show them here %>
-<% if @user.species.count > 0 %>
-<p>Species: </p>
-<ul>
-  <% @user.species.each do |species| %>
-      <li><%= link_to species.genus, species %>
-        <%= link_to image_tag(species.image, :class => "thumb"), species if species.image.present?  %></li>
-  <% end %>
-</ul>
-<% end %>
-
-<% if @user.accessories.count > 0%>
-<p>Accessories: </p>
-<ul>
-  <% @user.accessories.each do |accessory| %>
-      <li><%= link_to accessory.name, accessory %>
-        <%= link_to image_tag(accessory.image, :class => "thumb"), accessory if accessory.image.present?%></li>
-  <% end %>
-</ul>
-<% end %>
+    <% if @user.characters.count > 0 %>
+    <h2>Characters: </h2>
+    <div class="profile_grid">
+      <% @user.characters.each do |character| %>
+          <div class="gridContainer"><%= link_to character.name, character %><br>
+          <%= link_to image_tag(character.species.image, :class => "thumb"), character if character.species.image.present? %></div>
+      <% end %>
+    </div>
+    <% end %>
 
 
+    <%# if they have species, show them here %>
+    <% if @user.species.count > 0 %>
+    <h2>Species: </h2>
+    <div class="profile_grid">
+      <% @user.species.each do |species| %>
+          <div class="gridContainer"><%= link_to species.genus, species %><br>
+            <%= link_to image_tag(species.image, :class => "thumb"), species if species.image.present?  %></div>
+      <% end %>
+    </div>
+    <% end %>
 
-<%# Only allow edit and delete button, if the user looking is @current_user's %>
-<% if @current_user.id == @user.id || @current_user.admin == true %>
-  <div class="edit">
-    <%= link_to "Edit #{@user.username}", edit_user_path(@user.id) %>
-    <%= button_to "Delete #{@user.username}!", @user, :method => "delete", :data => {:confirm => "Are you sure?"} %>
-  </div>
-<% end %>
+    <% if @user.accessories.count > 0%>
+    <h2>Accessories: </h2>
+    <div class="profile_grid">
+      <% @user.accessories.each do |accessory| %>
+          <div class="gridContainer"><%= link_to accessory.name, accessory %><br>
+            <%= link_to image_tag(accessory.image, :class => "thumb"), accessory if accessory.image.present?%></div>
+      <% end %>
+    </div>
+    <% end %>
+
+
+
+    <%# Only allow edit and delete button, if the user looking is @current_user's %>
+    <% if @current_user.id == @user.id || @current_user.admin == true %>
+      <div class="edit">
+        <%= link_to "Edit #{@user.username}", edit_user_path(@user.id) %>
+        <%= button_to "Delete #{@user.username}!", @user, :method => "delete", :data => {:confirm => "Are you sure?"} %>
+      </div>
+    <% end %>
+</div>

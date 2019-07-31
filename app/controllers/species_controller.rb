@@ -12,7 +12,18 @@ class SpeciesController < ApplicationController
   def create
     @species = Species.create params_species
     @species.user_id = @current_user.id
+
+    if params[:file].present?
+      # Then call Cloudinary's upload method, passing in the file in params
+      req = Cloudinary::Uploader.upload(params[:file])
+      # Using the public_id allows us to use Cloudinary's powerful image
+      # transformation methods.
+      @species.image = req["public_id"]
+      @species.save
+    end
+
     @current_user.species << @species
+
     # @TODO change to character index path
     redirect_to species_path(@species)
   end
@@ -36,7 +47,14 @@ class SpeciesController < ApplicationController
 
   def update
     species = Species.find params[:id]
+
+    if params[:file].present?
+      req = Cloudinary::Uploader.upload(params[:file])
+      species.image = req["public_id"]
+    end
+
     species.update params_species
+    species.save
     redirect_to species
   end
 
