@@ -10,43 +10,51 @@
   </head>
 
   <body>
-    <nav>
-      <div class="navGrid">
-        <div class="logo">
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="logo navbar-brand">
           Dinoland
         </div>
-        <div class="links">
-          <ul>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
 
-            <li><%= link_to "Home", root_path %></li>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="nav navbar-nav ml-auto nav-padding">
+            <li class="nav-item"><%= link_to "Home", root_path, :class => "nav-link" %></li>
+            <% if @current_user.present? %>
+            <li class="nav-item"><%= link_to "Create!", new_character_path, :class => "nav-link" %></li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Boards
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <%= link_to "Characters", characters_path, :class => "dropdown-item" %>
+                <%= link_to "Species", species_index_path, :class => "dropdown-item" %>
+                <%= link_to "Accessories", accessories_path, :class => "dropdown-item" %>
+                <%= link_to "All Users", users_path, :class => "dropdown-item" %>
+              </div></li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <%= @current_user.username %>
+                <%= image_tag @current_user.profile_image, :class => "profileIcon" %>
+              </a>
 
-          <% if @current_user.present? %>
-            <li><%= link_to "Create!", new_character_path %></li>
-            <li><%= link_to "Boards" %></li>
-            <ul>
-              <li><%= link_to "Characters", characters_path %></li>
-              <li><%= link_to "Species", species_index_path %></li>
-              <li><%= link_to "Accessories", accessories_path %></li>
-              <%= link_to "All Users", users_path %>
-            </ul>
-            <li><%= link_to @current_user.username, user_path(@current_user.id) %>
-            <%= image_tag @current_user.profile_image, :class => "profileIcon" %></li>
-            <ul>
-              <li>Coins: <%= @current_user.coins %></li>
-              <li><%= link_to "Add coins", coins_path %></li>
-              <li><%= link_to "Your Characters", session_characters_path %></li>
-              <li><%= link_to "Your Species", session_species_path %></li>
-              <li><%= link_to "Your Accessories", session_accessories_path %></li>
-              <li></li>
-              <%= link_to "logout", login_path, :method => 'delete' %>
-            </ul>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <%= link_to "Account", user_path(@current_user.id), :class => "dropdown-item" %>
+              <%= link_to "Add coins", coins_path, :class => "dropdown-item" %>
+              <%= link_to "Your Characters", session_characters_path, :class => "dropdown-item" %>
+              <%= link_to "Your Species", session_species_path, :class => "dropdown-item" %>
+              <%= link_to "Your Accessories", session_accessories_path, :class => "dropdown-item" %>
+              <div class="dropdown-divider"></div>
+              <%= link_to "logout", login_path, :method => 'delete', :class => "dropdown-item" %>
+            </div></li>
 
-          <% else %>
+            <% else %>
             <li><%= link_to "Sign up", new_user_path %></li>
             <li><%= link_to "sign in", login_path %></li>
-          <% end %>
+            <% end %>
+          </ul>
         </div>
-      </div>
     </nav>
     <div class="container">
       <%= yield %>

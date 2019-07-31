@@ -27,6 +27,8 @@ gem 'rails_12factor', group: :production
 
 gem 'cloudinary'
 
+gem 'bootstrap'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

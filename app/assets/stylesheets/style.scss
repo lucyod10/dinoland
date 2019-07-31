@@ -24,39 +24,24 @@ body {
   padding: 20px
 }
 
-nav {
-  text-align: right;
-  padding: 30px;
-}
-
-nav a {
-  padding-right: 20px;
-  text-decoration: none;
-}
-nav a:last-of-type {
-  padding-right: 0px;
-}
-
-
-nav .navGrid {
-  display: grid;
-  grid-template-columns: 30% 70%;
-}
-
 nav .logo {
   font-family: 'Gloria Hallelujah', cursive;
   font-size: 3em;
   text-align: left;
 }
 
-nav .links {
-
+nav .profileIcon {
+  width: 1em;
+  height: 1em;
+  border-radius: 100%;
 }
 
-nav .profileIcon {
-  width: 40px;
-  height: 40px;
-  border-radius: 100%;
+.nav-padding {
+  padding-right: 50px;
+}
+
+.bg-light {
+  background-color: transparent;
 }
 
 h1, h2, h3, .title {
@@ -72,18 +57,7 @@ h1, h2, h3, .title {
   max-width: 30em;
 }
 
-.character_container {
-  width: 600px;
-  position: relative;
-}
 
-.character_feature {
-  width: 600px;
-}
-
-.character_accessory {
-  width: 100px;
-}
 
 .thumb {
   max-width: 10em;
@@ -227,15 +201,34 @@ input {
 }
 
 .character_shop input:checked ~ .accessory_checkbox {
-  box-shadow: inset 0 0 40px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.7);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
+  border: 1px solid #f4efea;
+  box-sizing: border-box;
+}
+
+.character_container {
+  width: 600px;
+  position: relative;
+}
+
+.character_feature {
+  width: 600px;
+}
+
+.character_accessory {
+  position: absolute !important;
+
+  width: 200px;
+  height: 200px;
 }
 
 .character_edit {
   position: relative;
+  text-align: left;
 }
 
 .accessory_item {
-  display: inline-block;
+
 }
 
 .accessories_selected {
@@ -245,7 +238,7 @@ input {
   display: block;
   width: 100%;
   box-sizing: border-box;
-  height: 80px;
+  height: 200px;
 }
 
 .error {
@@ -287,7 +280,7 @@ input {
 }
 
 .characterSelected {
-  background-image: radial-gradient(white 0%, transparent 80%);
+  background-image: radial-gradient(white 20%, transparent 50%);
 }
 
 .characterDescription {
@@ -302,4 +295,14 @@ input {
 .profile_grid {
   display: grid;
   grid-template-columns: auto auto auto;
+}
+
+.homeGrid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+.characterImage {
+  width: 300px;
 }
