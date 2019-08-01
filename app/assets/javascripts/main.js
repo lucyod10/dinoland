@@ -111,8 +111,8 @@ $(document).ready(() => {
       const featureWidth = $(".character_feature").width();
       const featureHeight = $(".character_feature").height();
 
-      left = left / featureWidth * 100;
-      top = top / featureHeight * 100;
+      left = left / 600 * 100;
+      top = top / 600 * 100;
 
       $("#positions_" + accessoryId + "_x").val(top);
       $("#positions_" + accessoryId + "_y").val(left);
@@ -217,6 +217,7 @@ $(document).ready(() => {
       accessories.each(function () {
         let accessoryOriginalW = this.naturalWidth;
         let accessoryOriginalH = this.naturalHeight;
+        console.log(accessoryOriginalW, accessoryOriginalH);
         // Using 600 for now as that is the width and height of all species.
         // TODO: change this ("600") to a repsonsive number for the species being displayed.
         // let wrapperW = $(".character_feature").naturalWidth;
