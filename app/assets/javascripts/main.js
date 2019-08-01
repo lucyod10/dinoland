@@ -131,8 +131,45 @@ $(document).ready(() => {
     setTimeout(resizeAcc, 100);
   }
 
-  // TODO: On page load, find all the rendered icons and make them draggable.
-
+  // // TODO: On page load, find all the rendered icons and make them draggable.
+  // // ISSUE: Edit controller makes a new entry for posession on save. Filter through and replace old posession values rather than creating a new entry.
+  // const editPagePresent = $("#editPage");
+  // if (editPagePresent) {
+  //   console.log($(".character_accessory"));
+  //   const posessions = $(".character_accessory");
+  //   posessions.draggable({
+  //     // TODO: make a box to contain draggable elements
+  //       containment: ".create_character_grid",
+  //       scroll: false,
+  //       stop: function () {
+  //       var l = ( 100 * parseFloat($(this).position().left / parseFloat($(this).parent().width())) ) + "%" ;
+  //       var t = ( 100 * parseFloat($(this).position().top / parseFloat($(this).parent().height())) ) + "%" ;
+  //       $(this).css("left", l);
+  //       $(this).css("top", t);
+  //       }
+  //   });
+  //
+  //   posessions.on("mouseup", function () {
+  //     let left = $(this).css("left");
+  //     let top = $(this).css("top");
+  //
+  //     left = parseInt(left, 10);
+  //     top = parseInt(top, 10);
+  //
+  //     // Calculate the X and Y as a percentage, for responsiveness.
+  //     const featureWidth = $(".character_feature").width();
+  //     const featureHeight = $(".character_feature").height();
+  //
+  //     left = left / featureWidth * 100;
+  //     top = top / featureHeight * 100;
+  //
+  //     const id = $(this).attr("id");
+  //     const accessoryId = id.replace(/[^0-9\.]/g, '');
+  //
+  //     $("#positions_" + accessoryId + "_x").val(top);
+  //     $("#positions_" + accessoryId + "_y").val(left);
+  //   });
+  // }
 
   // after every click, filter through all the icons to check if you have enough money for them, turning them red if you dont.
   function renderNotEnoughCoins() {

@@ -104,6 +104,8 @@ class CharactersController < ApplicationController
   def update
     character = Character.find params[:id]
 
+    # Before creating a new posession, check if it exists already and if it does just update the X and Y values.
+
     # find the checkboxes from params accessory[id][]
     # inside this will be an array of checked accessories.
     # for each of these, create a new Posession

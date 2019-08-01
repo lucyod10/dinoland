@@ -279,7 +279,6 @@ label {
 
 .character_container {
   max-width: 600px;
-  width: 100%;
   position: relative;
   margin: 0 auto;
 }
@@ -360,6 +359,8 @@ label {
   display: grid;
   grid-template-columns: auto auto auto;
 }
+
+
 
 .homeGrid {
   display: grid;

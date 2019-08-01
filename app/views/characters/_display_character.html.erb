@@ -1,3 +1,4 @@
+<div>
   <div class="character_container">
 
     <% if character.species.image.present?  %>
@@ -20,4 +21,8 @@
         <% end %>
         <% end %>
       <% end %>
+
+      <%= link_to character.name, character_path(character) %>
+  </div>
+
   </div>
