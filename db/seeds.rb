@@ -16,6 +16,7 @@ a4 = Accessory.create :name => "Hat - propeller", :image => "accessory_hat_prope
 a5 = Accessory.create :name => "Monacle", :image => "accessory_monacle.png", :cost => "258"
 a6 = Accessory.create :name => "Sunglasses", :image => "accessory_sunglasses.png", :cost => "24"
 a7 = Accessory.create :name => "Tie", :image => "accessory_tie.png", :cost => "76"
+a8 = Accessory.create :name => "dot", :image => "icon_test.png", :cost => "5"
 
 
 Character.destroy_all

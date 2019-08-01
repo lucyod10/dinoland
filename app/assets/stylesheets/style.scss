@@ -27,8 +27,9 @@ body {
 
 nav .logo {
   font-family: 'Gloria Hallelujah', cursive;
-  font-size: 3em;
+  font-size: 1.8em;
   text-align: left;
+  text-decoration: none;
 }
 
 nav .profileIcon {
@@ -125,6 +126,35 @@ input {
   display: grid;
   grid-template-rows: auto auto auto auto;
   box-sizing: border-box;
+}
+
+.createButton,
+.characterButton,
+.speciesButton {
+  border-radius: 4px;
+  border: none;
+  background-color: #d5d1cb;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  font-size: 1.1em;
+  padding: 10px 16px;
+  display: inline-block;
+
+}
+
+.createButton {
+  background-color: #6cd6f7;
+  color: #35849c;
+}
+
+.characterButton {
+  background-color: #9cd578;
+  color: #62a385;
+}
+
+.speciesButton {
+  background-color: #ffbb5d;
+  color: #d97f01;
 }
 
 input[type="text"],
@@ -227,6 +257,12 @@ label {
   height: 1em;
 }
 
+.error {
+  box-shadow: inset 0 0 40px rgba(255, 40, 40, 0.5), 0 0 20px rgba(133, 124, 111, 0.5) !important;
+  border: 1px solid rgba(255, 40, 40, 0.3);
+  box-sizing: border-box;
+}
+
 .accessory_checkbox:hover {
   box-shadow: inset 0 0 40px rgba(133, 124, 111, 0.3), 0 0 20px rgba(133, 124, 111, 0.5);
 }
@@ -273,10 +309,7 @@ label {
   height: 100%;
 }
 
-.error {
-  box-shadow: inset 0 0 40px rgba(255, 40, 40, 0.5);
-  color: maroon;
-}
+
 
 .centerContent {
   text-align: center;
@@ -305,6 +338,7 @@ label {
 
 .playGame {
   margin-top: 50px;
+
 }
 .playGame img {
   max-width: 200px;
@@ -339,6 +373,11 @@ label {
 }
 .loginPage input {
   display: inline-block;
+}
+
+.playButton {
+  max-width: 250px;
+  margin: 0 auto;
 }
 
 @media only screen and (max-width: 700px) {

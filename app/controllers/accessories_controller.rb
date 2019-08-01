@@ -12,6 +12,17 @@ class AccessoriesController < ApplicationController
   def create
     @accessory = Accessory.create params_accessory
     @accessory.user_id = @current_user.id
+
+    if params[:file].present?
+      # Then call Cloudinary's upload method, passing in the file in params
+      req = Cloudinary::Uploader.upload(params[:file])
+      # Using the public_id allows us to use Cloudinary's powerful image
+      # transformation methods.
+      @accessory.image = req["public_id"]
+      @accessory.save
+    end
+
+
     @current_user.accessories << @accessory
     # @TODO change to accessory index path
     redirect_to accessory_path(@accessory)
@@ -19,11 +30,7 @@ class AccessoriesController < ApplicationController
 
   def show
     @accessory = Accessory.find params[:id]
-    @num_accessories = []
-    @characters = Character.includes(:accessories)
-    @characters.each do |c|
-      @num_accessories.push(c.accessories.where('id' => @accessory.id)) if c.accessories.where('id' => @accessory.id).exists?
-    end
+
   end
 
   def edit
@@ -39,6 +46,16 @@ class AccessoriesController < ApplicationController
 # TODO: how to cause error if dont fill in all required fields
   def update
     accessory = Accessory.find params[:id]
+
+    if params[:file].present?
+      # Then call Cloudinary's upload method, passing in the file in params
+      req = Cloudinary::Uploader.upload(params[:file])
+      # Using the public_id allows us to use Cloudinary's powerful image
+      # transformation methods.
+      accessory.image = req["public_id"]
+      accessory.save
+    end
+
     accessory.update params_accessory
     redirect_to accessory
   end

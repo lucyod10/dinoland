@@ -3,6 +3,6 @@
 
 <% @characters.each do |character| %>
   <ul>
-    <li><%= link_to character.name, character %></li>
+    <li><%= render partial: "characters/display_character", collection: @characters, as: :character %></li>
   </ul>
 <% end %>

@@ -2,16 +2,14 @@
 
 <p>Accessory: <%= @accessory.name %></p>
 <% if @accessory.image.present? %>
-  <% if @accessory.image.include? "cloudinary" %>
-    <%= cl_image_tag @accessory.image, :class => "feature" %>
-  <% elsif %>
+  <% if @accessory.image.include? "." %>
     <%= image_tag @accessory.image, :class => "feature" %>
+  <% elsif %>
+    <%= cl_image_tag @accessory.image, :class => "feature" %>
   <% end %>
 <% end %>
 <p>Cost: <%= @accessory.cost %></p>
 <p>Creator: <%= link_to @accessory.user.username, user_path(@accessory.user.id)  %></p>
-
-<p>Number of Characters using: <%= @num_accessories.count  %></p>
 
 <%# Only allow edit and delete button, if the accessory is @current_user's %>
 <%# TODO: use a form for this edit div in accessories, characters, users and species. %>

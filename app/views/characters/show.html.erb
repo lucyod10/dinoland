@@ -2,7 +2,7 @@
 
   <h1><%= @character.name %></h1>
   <div class="characterDisplay">
-    <%= render :partial => 'display_character' %>
+    <%= render :partial => 'display_character', locals: {character: @character} %>
   </div>
 
   <div class="characterDescription">

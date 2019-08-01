@@ -6,6 +6,6 @@
 
   <p><%= @character.name %></p>
 
-  <%= render :partial => 'display_character' %>
+  <%= render :partial => 'characters/display_character', locals: {character: @character} %>
 
 </div>

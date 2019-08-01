@@ -30,6 +30,8 @@ $(document).ready(() => {
 
   // When you click on an input, check all the inputs, and remake the array.
   $("input[type=checkbox]").on("click", function (e) {
+    renderNotEnoughCoins();
+
     // Find accessories currently rendered to compare to the checked list.
     let allAccessoriesRendered = $(".accessories_selected");
 
@@ -55,24 +57,21 @@ $(document).ready(() => {
             // update hidden field
             $("#userCoins").val(tempCoins);
             addAccessory(imageURL, accessoryId);
-            this.parentNode.classList.remove("error");
           }
           else {
             // TODO: make the unchecking nicer for when the user gets enough coins.
             // TODO: make a separate function which loops through the accessories every time the tempCoin value changes and re-renders backgrounds, as well as changing click events.
             console.error("not enough coins, sorry");
-            this.parentNode.classList.add("error");
             // uncheck it.
             e.preventDefault();
           }
           // break out of loop so you don't add multiples.
+          renderNotEnoughCoins();
           return;
         }
-        this.parentNode.classList.remove("error");
       }
     }
     else {
-      this.parentNode.classList.remove("error");
       const uniqueId = "#accessoryRendered" + accessoryId;
       removeAccessory(uniqueId);
 
@@ -85,6 +84,7 @@ $(document).ready(() => {
       // update hidden field
       $("#userCoins").val(tempCoins);
     }
+    renderNotEnoughCoins();
   });
 
   function addAccessory (imageURL, accessoryId) {
@@ -117,6 +117,9 @@ $(document).ready(() => {
 
       $("#positions_" + accessoryId + "_x").val(top2);
       $("#positions_" + accessoryId + "_y").val(left2);
+
+
+
     });
     icon.draggable({
       // TODO: make a box to contain draggable elements
@@ -127,11 +130,36 @@ $(document).ready(() => {
         var t = ( 100 * parseFloat($(this).position().top / parseFloat($(this).parent().height())) ) + "%" ;
         $(this).css("left", l);
         $(this).css("top", t);
-    }
-      });
+        }
+    });
+
+    // resize icon if the screen is smaller than 600px
+    //resizeAcc();
   }
 
-// TODO: fix: When you remove an accessory, they all jump left 80px.
+  // after every click, filter through all the icons to check if you have enough money for them, turning them red if you dont.
+  function renderNotEnoughCoins() {
+    console.log("running");
+      let allAccessoryIcons = $("input[type=checkbox]");
+      let tempCoins = Number($("#userTempCoins").text());
+      allAccessoryIcons.each(function () {
+        let cost = Number(this.getAttribute("data"));
+        if (tempCoins > cost) {
+          // remove red colour
+          $(this).closest("label").find("div").removeClass("error");
+        }
+        else {
+          if ($(this).is(':checked')) {
+            // do nothing
+          }
+          else {
+            // turn icon red
+            $(this).closest("label").find("div").addClass("error");
+          }
+        }
+      });
+    }
+
   function removeAccessory (uniqueId) {
     console.log(uniqueId);
     $(uniqueId).remove();
@@ -162,4 +190,28 @@ $(document).ready(() => {
     });
   });
 
-});
+
+// RESIZING ///////////////////////////////////////////////////////////////////
+
+
+  $(window).resize(resizeAcc).trigger("resize");
+
+  function resizeAcc() {
+      let wrapper = $(".character_feature");
+      let accessories = $(".character_accessory");
+      accessories.each(function () {
+        let accessoryOriginalW = this.naturalWidth;
+        let accessoryOriginalH = this.naturalHeight;
+
+        let wrapperW = $(".character_feature").naturalWidth;
+        let wrapperH = $(".character_feature").naturalHeight;
+        let w = $(".character_feature").width() * (accessoryOriginalW / 600);
+        let h = $(".character_feature").height() * (accessoryOriginalH / 600);
+        
+        $(this).width(w);
+        $(this).height(h);
+      });
+    }
+
+
+}); //end

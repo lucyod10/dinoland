@@ -1,8 +1,15 @@
 <div class="centerContent">
   <h1>Welcome to Dinoland!</h1>
-  <p>Double tap one of your characters to choose him! Then press play.</p>
+  <% if @current_user.characters.length > 0 %>
+    <p>Double tap one of your characters to choose him! Then press play.</p>
+  <% else %>
+    <p><%= link_to "Create your first character", new_character_path, :class => "createButton" %></p>
+    <p><%= link_to "Check out other characters", characters_path, :class => "characterButton" %></p>
+    <p><%= link_to "Check out some species!", species_index_path, :class => "speciesButton" %></p>
+  <% end %>
 
   <div class="homeGrid">
+
     <% @characters.each do |character| %>
     <div class="character_container">
         <% if character.posessions.present? %>
@@ -29,11 +36,12 @@
     <% end %>
   </div>
 
-
+<% if @current_user.characters.length > 0 %>
   <div class="playGame">
     <%= form_tag "/game" do %>
       <%= hidden_field_tag "selectedCharacterHidden", "" %>
-      <%= submit_tag image_tag("dino_02.png") %>
+      <%= image_submit_tag("playbutton.png", :class => "playButton") %>
     <% end %>
   </div>
+<% end %>
 </div>

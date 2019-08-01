@@ -1,19 +1,19 @@
   <div class="character_container">
 
-    <% if @character.species.image.present?  %>
-      <% id = "feature_" + @character.id.to_s %>
+    <% if character.species.image.present?  %>
+      <% id = "feature_" + character.id.to_s %>
 
-      <% if @character.species.image.present? %>
-        <% if @character.species.image.include? "." %>
-          <%= image_tag @character.species.image, :class => "character_feature", :id => id %>
+      <% if character.species.image.present? %>
+        <% if character.species.image.include? "." %>
+          <%= image_tag character.species.image, :class => "character_feature", :id => id %>
         <% elsif %>
-          <%= cl_image_tag @character.species.image, :class => "character_feature", :id => id %>
+          <%= cl_image_tag character.species.image, :class => "character_feature", :id => id %>
         <% end %>
       <% end %>
     <% end %>
 
-    <% if @character.posessions.present? %>
-      <% @character.posessions.each do |p| %>
+    <% if character.posessions.present? %>
+      <% character.posessions.each do |p| %>
         <% id = p.accessory_id %>
         <% acc = Accessory.find id %>
 
