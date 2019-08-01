@@ -128,7 +128,7 @@ $(document).ready(() => {
         }
     });
     // resize icon if the screen is smaller than 600px. Timeout to allow image to load, otherwise width set to 0 until window is manually resized.
-    setTimeout(resizeAcc, 100);
+    setTimeout(resizeAcc, 500);
   }
 
   // // TODO: On page load, find all the rendered icons and make them draggable.
