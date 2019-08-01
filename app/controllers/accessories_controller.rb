@@ -18,10 +18,9 @@ class AccessoriesController < ApplicationController
       req = Cloudinary::Uploader.upload(params[:file])
       # Using the public_id allows us to use Cloudinary's powerful image
       # transformation methods.
-      @accessory.image = req["public_id"]
+      @accessory.image = req["url"]
       @accessory.save
     end
-
 
     @current_user.accessories << @accessory
     # @TODO change to accessory index path
@@ -52,7 +51,7 @@ class AccessoriesController < ApplicationController
       req = Cloudinary::Uploader.upload(params[:file])
       # Using the public_id allows us to use Cloudinary's powerful image
       # transformation methods.
-      accessory.image = req["public_id"]
+      accessory.image = req["url"]
       accessory.save
     end
 

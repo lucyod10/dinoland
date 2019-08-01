@@ -36,7 +36,13 @@ $(document).ready(() => {
     let allAccessoriesRendered = $(".accessories_selected");
 
     const accessoryId = this.getAttribute("value");
-    const imageURL = "/assets/" + accessoryImages[accessoryId];
+    
+    let imageURL = "/assets/" + accessoryImages[accessoryId];
+
+    if (accessoryImages[accessoryId].indexOf("cloudinary") > -1) {
+      imageURL = accessoryImages[accessoryId];
+    }
+
 
     if ($(this).is(':checked')) {
       // Loop through currently rendered accessories, checking against the checked accessories.
@@ -207,7 +213,7 @@ $(document).ready(() => {
         let wrapperH = $(".character_feature").naturalHeight;
         let w = $(".character_feature").width() * (accessoryOriginalW / 600);
         let h = $(".character_feature").height() * (accessoryOriginalH / 600);
-        
+
         $(this).width(w);
         $(this).height(h);
       });

@@ -1,5 +1,15 @@
-<h1>All Accessories!</h1>
 
+<h1>All Accessories!</h1>
+<div class="homeGrid">
 <% @accessories.each do |accessory| %>
-  <ol><li><%= link_to accessory.name, accessory %></li></ol>
+<div>
+    <% if accessory.image.include? "." %>
+      <%= link_to image_tag(accessory.image, :class => "thumb", :id => accessory.id), accessory_path(accessory) %>
+    <% elsif %>
+      <%= link_to cl_image_tag(accessory.image, :class => "thumb", :id => accessory.id), accessory_path(accessory) %>
+    <% end %>
+    <%= link_to accessory.name, accessory_path(accessory) %>
+  </div>
 <% end %>
+
+</div>
