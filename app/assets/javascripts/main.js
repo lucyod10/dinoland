@@ -4,20 +4,18 @@ $(document).ready(() => {
 
 // NEW DINO ///////////////////////////////////////////////////////////////
 
-// create a hash in the controller for dino_images as the value to their id
-
-// in form html, convert hash to json for access in js.
-
-// find select menu, and attach on 'change'
-// for each change, find the value of 'this', which will be the species id
-// Use the dino hash to find the associted image.
-
-//set the image to the div.
-// trigger('change') to make it load without an actual change.
-
+// Each time the species dropdown value is changed, find the ID of the newly selected species,
+// then find the associated image from a hash defined in the HTML - speciesImages
+// then change the image of the feature image on the page to match.
   $("select#character_species_id").on("change", function () {
     const species_id = $(this).val();
-    const image = "/assets/" + speciesImages[ species_id ];
+    // find the image URL of each species from variable set in HTML.
+    // Check if it is a cloudinary URL or a local path.
+    let image = "/assets/" + speciesImages[ species_id ];
+    if (image.indexOf("cloudinary") > -1) {
+      image = speciesImages[ species_id ];
+    }
+
     $("#character_edit").attr("class", "character_feature");
     $("#character_edit").attr("src", image);
   }).trigger("change");
@@ -25,74 +23,73 @@ $(document).ready(() => {
 // ACCESSORY SELECT //////////////////////////////////////////////////////////
 
   // Array containing all the currently checked accessories. Updated on click of a checkbox.
-  let checkedAccessories = [];
-  let renderAccessory = false;
+  // let checkedAccessories = [];
 
   // When you click on an input, check all the inputs, and remake the array.
   $("input[type=checkbox]").on("click", function (e) {
-    renderNotEnoughCoins();
-
     // Find accessories currently rendered to compare to the checked list.
     let allAccessoriesRendered = $(".accessories_selected");
 
+    // find the image URL of the accessory clicked from variable set in HTML.
+    // Check if it is a cloudinary URL or a local path.
     const accessoryId = this.getAttribute("value");
-    
     let imageURL = "/assets/" + accessoryImages[accessoryId];
-
-    if (accessoryImages[accessoryId].indexOf("cloudinary") > -1) {
+    if (imageURL.indexOf("cloudinary") > -1) {
       imageURL = accessoryImages[accessoryId];
     }
 
-
     if ($(this).is(':checked')) {
-      // Loop through currently rendered accessories, checking against the checked accessories.
+      // Loop through currently rendered accessories,
+      // checking against the clicked on accessory.
       for (let j=0; j < allAccessoriesRendered.length; j++) {
         if (allAccessoriesRendered[j].getAttribute("value") == accessoryId) {
           // If the checked icon is already rendered, skip.
         }
         else {
-          // check if they have enough money to add
+          // If the checked icon is not already rendered, see if they can afford it, and render it if they can
           let tempCoins = Number($("#userTempCoins").text());
           let cost = Number(this.getAttribute("data"));
 
           if (tempCoins > cost) {
-            console.log("buy!")
+            // update users temp coin value.
             tempCoins -= cost;
             // update UI
-            $("#userTempCoins").text(tempCoins)
-            // update hidden field
+            $("#userTempCoins").text(tempCoins);
+            // update hidden field for the form in backend
             $("#userCoins").val(tempCoins);
+            // add the accessory to the page for user to edit.
             addAccessory(imageURL, accessoryId);
           }
           else {
-            // TODO: make the unchecking nicer for when the user gets enough coins.
-            // TODO: make a separate function which loops through the accessories every time the tempCoin value changes and re-renders backgrounds, as well as changing click events.
-            console.error("not enough coins, sorry");
-            // uncheck it.
+            // do not allow the check action, as the user cannot afford it.
             e.preventDefault();
           }
-          // break out of loop so you don't add multiples.
+          // break out of loop once they render it, so you don't add multiples.
+          // refresh which icons are red to indicate that the user can't afford
           renderNotEnoughCoins();
           return;
         }
       }
     }
     else {
+      // If the clicked on accessory is not checked.
+      // add the users coins back to their inventory, and remove accessory.
       const uniqueId = "#accessoryRendered" + accessoryId;
       removeAccessory(uniqueId);
-
       // add the money back into their account
       let tempCoins = Number($("#userTempCoins").text());
       let cost = Number(this.getAttribute("data"));
       tempCoins += cost;
       // update UI
       $("#userTempCoins").text(tempCoins)
-      // update hidden field
+      // update hidden field for the backend
       $("#userCoins").val(tempCoins);
     }
+    // refresh which icons are red to indicate that the user can't afford
     renderNotEnoughCoins();
   });
 
+  // Call addAccessory whenever an editable accessory should be added to the feature_image.
   function addAccessory (imageURL, accessoryId) {
     let icon = $('<img class="character_accessory">');
     icon.attr("src", imageURL);
@@ -101,31 +98,23 @@ $(document).ready(() => {
     icon.attr("id", uniqueId);
 
     icon.appendTo("#accessories_selected");
-    // change the X and Y values filtering to the database every time a user stops dragging.
+    // change the X and Y values being sent to the database every time a user stops dragging.
     icon.on("click", function () {
       let left = icon.css("left");
       let top = icon.css("top");
 
       left = parseInt(left, 10);
       top = parseInt(top, 10);
-      console.log("left: " + left);
-      console.log("top: " + top);
 
+      // Calculate the X and Y as a percentage, for responsiveness.
       const featureWidth = $(".character_feature").width();
       const featureHeight = $(".character_feature").height();
-      console.log("featureWidth: " + featureWidth);
-      console.log("featureHeight: " + featureHeight);
 
-      let left2 = left / featureWidth * 100;
-      let top2 = top / featureHeight * 100;
-      console.log("left2: " + left2);
-      console.log("top2: " + top2);
+      left = left / featureWidth * 100;
+      top = top / featureHeight * 100;
 
-      $("#positions_" + accessoryId + "_x").val(top2);
-      $("#positions_" + accessoryId + "_y").val(left2);
-
-
-
+      $("#positions_" + accessoryId + "_x").val(top);
+      $("#positions_" + accessoryId + "_y").val(left);
     });
     icon.draggable({
       // TODO: make a box to contain draggable elements
@@ -138,68 +127,50 @@ $(document).ready(() => {
         $(this).css("top", t);
         }
     });
-
-    // resize icon if the screen is smaller than 600px
-    //resizeAcc();
+    // resize icon if the screen is smaller than 600px. Timeout to allow image to load, otherwise width set to 0 until window is manually resized.
+    setTimeout(resizeAcc, 100);
   }
+
+  // TODO: On page load, find all the rendered icons and make them draggable.
+
 
   // after every click, filter through all the icons to check if you have enough money for them, turning them red if you dont.
   function renderNotEnoughCoins() {
-    console.log("running");
-      let allAccessoryIcons = $("input[type=checkbox]");
-      let tempCoins = Number($("#userTempCoins").text());
-      allAccessoryIcons.each(function () {
-        let cost = Number(this.getAttribute("data"));
-        if (tempCoins > cost) {
-          // remove red colour
-          $(this).closest("label").find("div").removeClass("error");
+    let allAccessoryIcons = $("input[type=checkbox]");
+    let tempCoins = Number($("#userTempCoins").text());
+    allAccessoryIcons.each(function () {
+      let cost = Number(this.getAttribute("data"));
+      if (tempCoins > cost) {
+        // remove red colour
+        $(this).closest("label").find("div").removeClass("error");
+      }
+      else {
+        if ($(this).is(':checked')) {
+          // do nothing
         }
         else {
-          if ($(this).is(':checked')) {
-            // do nothing
-          }
-          else {
-            // turn icon red
-            $(this).closest("label").find("div").addClass("error");
-          }
+          // turn icon red
+          $(this).closest("label").find("div").addClass("error");
         }
-      });
-    }
+      }
+    });
+  }
 
   function removeAccessory (uniqueId) {
-    console.log(uniqueId);
     $(uniqueId).remove();
   }
 
   function changeCoins (cost) {
     let currentCoins = $("#userTempCoins").val();
     let newCoins = currentCoins - cost;
+    // set new value to front facin UI (userTempCoins), as well as the hidden tag (userCoins) for the backend.
     $("#userTempCoins").val(newCoins);
     $("#userCoins").val(newCoins);
   }
 
-
-// DRAGGING ///////////////////////////////////////////////////////////////////
-
-  $(function() {
-    var isDragging = false;
-    $("a")
-    .mousedown(function() {
-        isDragging = false;
-    })
-    .mousemove(function() {
-        isDragging = true;
-     })
-    .mouseup(function() {
-        var wasDragging = isDragging;
-        isDragging = false;
-    });
-  });
-
-
 // RESIZING ///////////////////////////////////////////////////////////////////
-
-
+  // When the window is resized, scale all the accessories proportional to the feature image size.
+  // responsive.
   $(window).resize(resizeAcc).trigger("resize");
 
   function resizeAcc() {
@@ -208,9 +179,13 @@ $(document).ready(() => {
       accessories.each(function () {
         let accessoryOriginalW = this.naturalWidth;
         let accessoryOriginalH = this.naturalHeight;
+        // Using 600 for now as that is the width and height of all species.
+        // TODO: change this ("600") to a repsonsive number for the species being displayed.
+        // let wrapperW = $(".character_feature").naturalWidth;
+        // let wrapperH = $(".character_feature").naturalHeight;
 
-        let wrapperW = $(".character_feature").naturalWidth;
-        let wrapperH = $(".character_feature").naturalHeight;
+        // caculate the original percentage that the accessory took of the feature image,
+        // then multiply it by the new feature width to get the new accessory width.
         let w = $(".character_feature").width() * (accessoryOriginalW / 600);
         let h = $(".character_feature").height() * (accessoryOriginalH / 600);
 
@@ -218,6 +193,4 @@ $(document).ready(() => {
         $(this).height(h);
       });
     }
-
-
 }); //end

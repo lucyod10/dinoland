@@ -24,11 +24,7 @@
           <% id = "feature_" + character.id.to_s %>
 
           <% if character.species.image.present? %>
-            <% if character.species.image.include? "." %>
             <%= image_tag character.species.image, :class => "character_feature characterImage", :id => id %>
-          <% elsif %>
-            <%= cl_image_tag character.species.image, :class => "character_feature characterImage", :id => id %>
-          <% end %>
           <% end %>
 
         <% end %>

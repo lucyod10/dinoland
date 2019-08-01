@@ -16,20 +16,17 @@ class AccessoriesController < ApplicationController
     if params[:file].present?
       # Then call Cloudinary's upload method, passing in the file in params
       req = Cloudinary::Uploader.upload(params[:file])
-      # Using the public_id allows us to use Cloudinary's powerful image
-      # transformation methods.
+      # need to use URL for the javascript callback when editing dino.
       @accessory.image = req["url"]
       @accessory.save
     end
 
     @current_user.accessories << @accessory
-    # @TODO change to accessory index path
     redirect_to accessory_path(@accessory)
   end
 
   def show
     @accessory = Accessory.find params[:id]
-
   end
 
   def edit
@@ -49,8 +46,7 @@ class AccessoriesController < ApplicationController
     if params[:file].present?
       # Then call Cloudinary's upload method, passing in the file in params
       req = Cloudinary::Uploader.upload(params[:file])
-      # Using the public_id allows us to use Cloudinary's powerful image
-      # transformation methods.
+      # need to use URL for the javascript callback when editing dino.
       accessory.image = req["url"]
       accessory.save
     end

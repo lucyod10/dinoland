@@ -16,15 +16,12 @@ class SpeciesController < ApplicationController
     if params[:file].present?
       # Then call Cloudinary's upload method, passing in the file in params
       req = Cloudinary::Uploader.upload(params[:file])
-      # Using the public_id allows us to use Cloudinary's powerful image
-      # transformation methods.
-      @species.image = req["public_id"]
+      # need to use URL for the javascript callback when editing dino.
+      @species.image = req["url"]
       @species.save
     end
 
     @current_user.species << @species
-
-    # @TODO change to character index path
     redirect_to species_path(@species)
   end
 
@@ -32,7 +29,6 @@ class SpeciesController < ApplicationController
     @species = Species.find params[:id]
     # Logic for number of characters using this species
     @num_characters = Character.includes(:species).where('species_id' => @species.id)
-
   end
 
   def edit
@@ -50,7 +46,8 @@ class SpeciesController < ApplicationController
 
     if params[:file].present?
       req = Cloudinary::Uploader.upload(params[:file])
-      species.image = req["public_id"]
+      # need to use URL for the javascript callback when editing dino.
+      species.image = req["url"]
     end
 
     species.update params_species

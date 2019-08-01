@@ -3,6 +3,4 @@
 <% @characters.each do |character| %>
   <li><%= link_to character.name, character %>, the <%= character.species.genus if character.species.present?  %></li>
 <% end %>
-
-
 </ol>

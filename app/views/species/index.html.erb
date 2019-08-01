@@ -3,11 +3,7 @@
 <div class="homeGrid">
 <% @species.each do |species| %>
 <div>
-    <% if species.image.include? "." %>
       <%= link_to image_tag(species.image, :class => "thumb", :id => species.id), species_path(species) %>
-    <% elsif %>
-      <%= link_to cl_image_tag(species.image, :class => "thumb", :id => species.id), species_path(species) %>
-    <% end %>
     <%= link_to species.genus, species_path(species) %>
   </div>
 <% end %>

@@ -8,11 +8,7 @@
         <%= @user.username %>!</h1>
 
         <% if @user.profile_image.present? %>
-          <% if @user.profile_image.include? "." %>
             <%= image_tag @user.profile_image, :class => "profile_image" %>
-          <% elsif %>
-            <%= cl_image_tag @user.profile_image, :class => "profile_image" %>
-          <% end %>
         <% end %>
 
     <p class="coin"><%= image_tag "coin.png" %><%= @user.coins  if @user.coins.present?%></p>
@@ -31,12 +27,7 @@
     <div class="profile_grid">
       <% @user.species.each do |species| %>
           <div class="gridContainer"><%= link_to species.genus, species %><br>
-
-            <% if species.image.include? "." %>
               <%= link_to image_tag(species.image, :class => "thumb"), species if species.image.present?  %>
-            <% elsif %>
-              <%= link_to cl_image_tag(species.image, :class => "thumb"), species if species.image.present?  %>
-            <% end %>
 
           </div>
       <% end %>

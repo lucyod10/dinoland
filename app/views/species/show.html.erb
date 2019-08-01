@@ -4,11 +4,7 @@
 <p>Order: <%= @species.order %></p>
 <p>Diet: <%= @species.diet %></p>
 <% if @species.image.present? %>
-    <% if @species.image.include? "." %>
       <%= image_tag @species.image, :class => "feature" %>
-    <% elsif %>
-      <%= cl_image_tag @species.image, :class => "feature" %>
-    <% end %>
 
 <% end %>
 <p>Fun Fact: <%= @species.fun_fact %></p>

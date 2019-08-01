@@ -61,22 +61,16 @@
           <p class="coinCount"><%= image_tag "coin.png" %><span id="userTempCoins"><%= @current_user.coins %></span></p>
         </div>
 
-<!-- TODO: if the charaacter already has a posession, check the checkbox. Make sure the money js file works too. (i.e. gives money back for unchecking it) -->
         <div class="character_shop_grid">
           <%= collection_check_boxes(:accessory, :id, Accessory.all, :id, :name) do |b| %>
             <%= b.label(class: "check_box") { %>
-
             <%= b.check_box(class: "check_box", data: "#{b.object.cost}", checked: @character.accessory_ids.include?(b.value)) %>
             <div class="accessory_checkbox">
               <span class="accessory_checkbox_cost">
                 <%= image_tag "coin.png" %>
                 <%= b.object.cost.to_s %>
               </span>
-              <% if b.object.image.include? "." %>
                 <%= image_tag(b.object.image, :class => "icon")  %>
-              <% elsif %>
-                <%= cl_image_tag(b.object.image, :class => "icon")  %>
-              <% end %>
             </div>
             <% } %>
 

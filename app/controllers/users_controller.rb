@@ -16,9 +16,8 @@ class UsersController < ApplicationController
     if params[:file].present?
       # Then call Cloudinary's upload method, passing in the file in params
       req = Cloudinary::Uploader.upload(params[:file])
-      # Using the public_id allows us to use Cloudinary's powerful image
-      # transformation methods.
-      @user.profile_image = req["public_id"]
+      # need to use URL for the javascript callback when editing dino.
+      @user.profile_image = req["url"]
       @user.save
     end
 
@@ -55,9 +54,8 @@ class UsersController < ApplicationController
     if params[:file].present?
       # Then call Cloudinary's upload method, passing in the file in params
       req = Cloudinary::Uploader.upload(params[:file])
-      # Using the public_id allows us to use Cloudinary's powerful image
-      # transformation methods.
-      user.profile_image = req["public_id"]
+      # need to use URL for the javascript callback when editing dino.
+      user.profile_image = req["url"]
       user.save
     end
     user.update user_params

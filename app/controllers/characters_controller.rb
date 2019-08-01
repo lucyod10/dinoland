@@ -1,7 +1,4 @@
 class CharactersController < ApplicationController
-  # TODO: edit the accessories for a character.
-  # TODO: column for the X and Y position of the accessory per character. Perhaps stored in the many to many table?
-
   before_action :check_for_login
 
   def index
@@ -11,7 +8,7 @@ class CharactersController < ApplicationController
   def new
     @coins = @current_user.coins
     @character = Character.new
-    # Create a hash to link species id with their image
+    # Create a hash to link species id with their image, this is added in HTML to be used in main.js
     # TODO: make default image something else - "choose dino" or something.
     @species_images = {}
     @species = Species.all
@@ -20,14 +17,13 @@ class CharactersController < ApplicationController
       @species_images[ s.id ] = s.image
     end
 
-    # Create list of all accessories to choose from.
+    # Create a hash to link accessory id with their image, this is added in HTML to be used in main.js
     @accessory_images = {}
     @accessories = Accessory.all
     @accessories.each do |a|
       @default_image = a.image if @default_image.nil?
       @accessory_images[ a.id ] = a.image
     end
-
   end
 
   def create
@@ -59,7 +55,6 @@ class CharactersController < ApplicationController
           end
         end
 
-
         new_posession = Posession.create :accessory_id => p, :character_id => @character.id, :x_pos => @x_pos, :y_pos => @y_pos
         @character.posessions << new_posession
       end
@@ -70,7 +65,6 @@ class CharactersController < ApplicationController
       @current_user.save
     end
 
-    # @TODO change to character index path
     redirect_to character_path(@character)
   end
 
@@ -82,8 +76,7 @@ class CharactersController < ApplicationController
   def edit
     @character = Character.find params[:id]
     @coins = @current_user.coins
-    # Create a hash to link species id with their image
-    # TODO: make default image something else - "choose dino" or something.
+    # Create a hash to link species id with their image, this is added in HTML to be used in main.js
     @species_images = {}
     @species = Species.all
     @species.each do |s|
@@ -91,7 +84,7 @@ class CharactersController < ApplicationController
       @species_images[ s.id ] = s.image
     end
 
-    # Create list of all accessories to choose from.
+    # Create a hash to link accessory id with their image, this is added in HTML to be used in main.js
     @accessory_images = {}
     @accessories = Accessory.all
     @accessories.each do |a|
@@ -105,14 +98,11 @@ class CharactersController < ApplicationController
     else
       redirect_to characters_path
     end
-
-
   end
 
 # TODO: how to cause error if dont fill in all required fields
   def update
     character = Character.find params[:id]
-    
 
     # find the checkboxes from params accessory[id][]
     # inside this will be an array of checked accessories.
@@ -120,8 +110,6 @@ class CharactersController < ApplicationController
     @posessions = params[:accessory][:id]
     @posessions.each do |p|
       if p.present?
-        # TODO: find x and y values for each posession.
-        # find the x and y coordinates saved
         @positions = params[:positions]
         @x_pos = 0
         @y_pos = 0
@@ -136,7 +124,6 @@ class CharactersController < ApplicationController
             end
           end
         end
-
 
         new_posession = Posession.create :accessory_id => p, :character_id => character.id, :x_pos => @x_pos, :y_pos => @y_pos
         character.posessions << new_posession

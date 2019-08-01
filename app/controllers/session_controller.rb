@@ -39,9 +39,9 @@ class SessionController < ApplicationController
 
   def add_coins
     if @current_user.coins.nil?
-      @current_user.coins = 50
+      @current_user.coins = rand(5..50)
     else
-      @current_user.coins += 50
+      @current_user.coins += rand(5..50)
     end
     @current_user.save
     redirect_to :coins

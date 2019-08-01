@@ -54,11 +54,7 @@
                 <%= image_tag "coin.png" %>
                 <%= b.object.cost.to_s %>
               </span>
-                <% if b.object.image.include? "." %>
                   <%= image_tag(b.object.image, :class => "icon")  %>
-                <% elsif %>
-                  <%= cl_image_tag(b.object.image, :class => "icon")  %>
-                <% end %>
             </div>
             <% } %>
 

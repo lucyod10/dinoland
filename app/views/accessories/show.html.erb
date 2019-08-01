@@ -2,11 +2,7 @@
 
 <p>Accessory: <%= @accessory.name %></p>
 <% if @accessory.image.present? %>
-  <% if @accessory.image.include? "." %>
-    <%= image_tag @accessory.image, :class => "feature" %>
-  <% elsif %>
-    <%= cl_image_tag @accessory.image, :class => "feature" %>
-  <% end %>
+  <%= image_tag @accessory.image, :class => "feature" %>
 <% end %>
 <p>Cost: <%= @accessory.cost %></p>
 <p>Creator: <%= link_to @accessory.user.username, user_path(@accessory.user.id)  %></p>
