@@ -1,4 +1,5 @@
 $(document).ready(() => {
+  resizeAcc();
 
 // TODO: check for page loaded, so that js doesnt run on every page.
 
