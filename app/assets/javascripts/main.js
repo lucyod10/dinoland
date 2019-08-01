@@ -111,8 +111,8 @@ $(document).ready(() => {
       const featureWidth = $(".character_feature").width();
       const featureHeight = $(".character_feature").height();
 
-      left = left / 600 * 100;
-      top = top / 600 * 100;
+      left = left / featureWidth * 100;
+      top = top / featureHeight * 100;
 
       $("#positions_" + accessoryId + "_x").val(top);
       $("#positions_" + accessoryId + "_y").val(left);
@@ -121,11 +121,11 @@ $(document).ready(() => {
       // TODO: make a box to contain draggable elements
         containment: ".create_character_grid",
         scroll: false,
-        stop: function () {
-        var l = ( 100 * parseFloat($(this).position().left / parseFloat($(this).parent().width())) ) + "%" ;
-        var t = ( 100 * parseFloat($(this).position().top / parseFloat($(this).parent().height())) ) + "%" ;
-        $(this).css("left", l);
-        $(this).css("top", t);
+        // stop: function () {
+        // var l = ( 100 * parseFloat($(this).position().left / parseFloat($(this).parent().width())) ) + "%" ;
+        // var t = ( 100 * parseFloat($(this).position().top / parseFloat($(this).parent().height())) ) + "%" ;
+        // $(this).css("left", l);
+        // $(this).css("top", t);
         }
     });
     // resize icon if the screen is smaller than 600px. Timeout to allow image to load, otherwise width set to 0 until window is manually resized.
@@ -217,7 +217,6 @@ $(document).ready(() => {
       accessories.each(function () {
         let accessoryOriginalW = this.naturalWidth;
         let accessoryOriginalH = this.naturalHeight;
-        console.log(accessoryOriginalW, accessoryOriginalH);
         // Using 600 for now as that is the width and height of all species.
         // TODO: change this ("600") to a repsonsive number for the species being displayed.
         // let wrapperW = $(".character_feature").naturalWidth;
