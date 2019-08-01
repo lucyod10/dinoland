@@ -2,30 +2,28 @@
   <h1>Welcome to Dinoland!</h1>
   <p>Double tap one of your characters to choose him! Then press play.</p>
 
-  <!-- <div class="characterScroller">
-    <div class="characterScrollerInner" id="characterScrollerInner">
-      <%= image_tag "dino_02.png", :class => "characterImage"  %>
-      <%= image_tag "dino_03.png", :class => "characterImage"  %>
-      <%= image_tag "dino_02.png", :class => "characterImage"  %>
-
-
-    </div>
-  </div> -->
-
   <div class="homeGrid">
     <% @characters.each do |character| %>
     <div class="character_container">
-        <% if character.species.image.present?  %>
-          <% id = "feature_" + character.id.to_s %>
-          <%= image_tag character.species.image, :class => "character_feature", :id => id %>
-        <% end %>
-
         <% if character.posessions.present? %>
           <% character.posessions.each do |p| %>
             <% id = p.accessory_id %>
             <% acc = Accessory.find id %>
-              <%= posession = image_tag acc.image, :class => "character_accessory", :style => "position: absolute; top: #{p.x_pos}px; left: #{p.y_pos}px;" %>
+              <%= posession = image_tag acc.image, :class => "character_accessory", :style => "position: absolute; top: #{p.x_pos}%; left: #{p.y_pos}%;" %>
           <% end %>
+        <% end %>
+
+        <% if character.species.image.present?  %>
+          <% id = "feature_" + character.id.to_s %>
+
+          <% if character.species.image.present? %>
+            <% if character.species.image.include? "." %>
+            <%= image_tag character.species.image, :class => "character_feature characterImage", :id => id %>
+          <% elsif %>
+            <%= cl_image_tag character.species.image, :class => "character_feature characterImage", :id => id %>
+          <% end %>
+          <% end %>
+
         <% end %>
       </div>
     <% end %>
@@ -33,6 +31,9 @@
 
 
   <div class="playGame">
-    <%= link_to image_tag("dino_02.png"), coins_path %>
+    <%= form_tag "/game" do %>
+      <%= hidden_field_tag "selectedCharacterHidden", "" %>
+      <%= submit_tag image_tag("dino_02.png") %>
+    <% end %>
   </div>
 </div>

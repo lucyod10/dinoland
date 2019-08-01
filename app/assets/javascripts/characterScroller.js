@@ -14,6 +14,9 @@ $(document).ready(() => {
       characters = $(".characterImage");
       characters.removeClass("characterSelected");
       this.classList.add("characterSelected");
+      let id = this.getAttribute("id");
+      $('#selectedCharacterHidden').val(id);
+
     });
 
 // DRAGGING ///////////////////////////////////////////////////////////////////

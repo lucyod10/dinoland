@@ -1,0 +1,11 @@
+<div class="centerContent">
+  <h1>Game coming soon</h1>
+
+  <p>Coins: <%= @current_user.coins %></p>
+  <%= button_to "Add Coins", action: "add_coins" %>
+
+  <p><%= @character.name %></p>
+
+  <%= render :partial => 'display_character' %>
+
+</div>

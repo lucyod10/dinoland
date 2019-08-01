@@ -97,15 +97,37 @@ $(document).ready(() => {
     icon.appendTo("#accessories_selected");
     // change the X and Y values filtering to the database every time a user stops dragging.
     icon.on("click", function () {
-      const left = icon.css("left");
-      const top = icon.css("top");
-      $("#positions_" + accessoryId + "_x").val(top);
-      $("#positions_" + accessoryId + "_y").val(left);
+      let left = icon.css("left");
+      let top = icon.css("top");
+
+      left = parseInt(left, 10);
+      top = parseInt(top, 10);
+      console.log("left: " + left);
+      console.log("top: " + top);
+
+      const featureWidth = $(".character_feature").width();
+      const featureHeight = $(".character_feature").height();
+      console.log("featureWidth: " + featureWidth);
+      console.log("featureHeight: " + featureHeight);
+
+      let left2 = left / featureWidth * 100;
+      let top2 = top / featureHeight * 100;
+      console.log("left2: " + left2);
+      console.log("top2: " + top2);
+
+      $("#positions_" + accessoryId + "_x").val(top2);
+      $("#positions_" + accessoryId + "_y").val(left2);
     });
     icon.draggable({
       // TODO: make a box to contain draggable elements
         containment: ".create_character_grid",
-        scroll: false
+        scroll: false,
+        stop: function () {
+        var l = ( 100 * parseFloat($(this).position().left / parseFloat($(this).parent().width())) ) + "%" ;
+        var t = ( 100 * parseFloat($(this).position().top / parseFloat($(this).parent().height())) ) + "%" ;
+        $(this).css("left", l);
+        $(this).css("top", t);
+    }
       });
   }
 

@@ -1,22 +1,32 @@
-<h1>New User</h1>
+<div class="loginPage">
+  <h1>Sign Up</h1>
 
-<% if @user.errors.any? %>
-<ol>
-  <% @user.errors.full_messages.each do |message| %>
-    <li><%= message %></li>
+  <% if @user.errors.any? %>
+  <ol>
+    <% @user.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ol>
   <% end %>
-</ol>
-<% end %>
 
-<%= form_for @user do |f| %>
-<%= f.label :email %>
-<%= f.email_field :email %>
+  <%= form_for @user, :html => {:multipart => true} do |f| %>
 
-<%= f.label :password %>
-<%= f.password_field :password %>
+  <%= f.label :username, "Username: *" %>
+  <%= f.text_field :username %>
 
-<%= f.label :password_confirmation %>
-<%= f.password_field :password_confirmation %>
+  <%= f.label :profile_image, "Profile Image:" %>
+  <%= f.cl_image_upload :profile_image %>
 
-<%= f.submit "Sign Up!" %>
-<% end %>
+  <%= f.label :email, "E-mail: *" %>
+  <%= f.email_field :email %>
+
+  <%= f.label :password, "Password: *" %>
+  <%= f.password_field :password %>
+
+  <%= f.label :password_confirmation, "Confirm Password: *" %>
+  <%= f.password_field :password_confirmation %><br>
+
+  <%= f.submit "Sign Up!" %>
+  <p>or <%= link_to "Sign in", login_path %></p>
+  <% end %>
+</div>

@@ -1,4 +1,5 @@
-<h1>Log In</h1>
+<div class="loginPage">
+  <h1>Sign In</h1>
 
 <p>
   <%= flash[:error_message] %>
@@ -9,8 +10,10 @@
   <%= email_field_tag :email %>
 
   <%= label_tag :password %>
-  <%= password_field_tag :password %>
+  <%= password_field_tag :password %><br>
 
   <%= submit_tag "Sign In" %>
+  <p>or <%= link_to "Sign Up", new_user_path %></p>
 
 <% end %>
+</div>

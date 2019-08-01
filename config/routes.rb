@@ -12,4 +12,7 @@ Rails.application.routes.draw do
   delete "/login" => "session#destroy"
   get "/coins" => "session#coins"
   post "/coins/add" => "session#add_coins"
+  get "/game" => "pages#game"
+  post "/game" => "pages#play"
+  post "/game/add" => "pages#add_coins"
 end

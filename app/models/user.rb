@@ -11,6 +11,7 @@
 #  password_digest :string
 #  admin           :boolean          default(FALSE)
 #  profile_image   :text
+#  creator         :boolean          default(FALSE)
 #
 
 class User < ApplicationRecord

@@ -2,7 +2,7 @@
 
 * {
   font-family: 'Open Sans', sans-serif;
-  color: #837b6f;
+  color: #7c7568;
 }
 
 html {
@@ -21,7 +21,8 @@ body {
 .container {
   max-width: 700px;
   margin: 0 auto;
-  padding: 20px
+  padding: 20px;
+  text-align: center;
 }
 
 nav .logo {
@@ -44,12 +45,35 @@ nav .profileIcon {
   background-color: transparent;
 }
 
+.navbar-light .navbar-brand {
+  color: #7c7568 !important;
+}
+
+.navbar .navbar-collapse,
+.navbar-nav .dropdown-menu {
+  text-align: center;
+}
+
+.userName {
+  font-family: 'Gloria Hallelujah', cursive !important;
+}
+
 h1, h2, h3, .title {
   font-family: 'Gloria Hallelujah', cursive;
 }
 
 .title {
   font-size: 2em;
+}
+
+a {
+  color: #7c7568;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+a:hover {
+  color: #37332b;
 }
 
 
@@ -64,7 +88,13 @@ h1, h2, h3, .title {
 }
 
 .icon {
-  max-width: 5em;
+  max-width: 100px;
+  max-height: 100px;
+}
+
+.iconProfile {
+  max-width: 1.3em;
+  max-height: 1.3em;
 }
 
 .profile_image {
@@ -97,9 +127,10 @@ input {
   box-sizing: border-box;
 }
 
-.create_character_grid input[type="text"],
-.create_character_grid input[type="number"],
-.create_character_grid select {
+input[type="text"],
+input[type="number"],
+input,
+select {
   border-radius: 4px;
   width: 100%;
   border: none;
@@ -110,7 +141,7 @@ input {
   padding: 5px 10px;
 }
 
-.create_character_grid input[type="submit"] {
+input[type="submit"] {
   border-radius: 4px;
   padding: 5px 20px;
   border: none;
@@ -122,7 +153,7 @@ input {
   margin: 30px auto;
 }
 
-.create_character_grid input[type="submit"]:hover {
+input[type="submit"]:hover {
   color: #d5d1cb;
   background-color: #857c6f;
 }
@@ -172,7 +203,7 @@ input {
   display: none;
 }
 
-.character_shop label {
+label {
   cursor: pointer;
 }
 
@@ -207,19 +238,20 @@ input {
 }
 
 .character_container {
-  width: 600px;
+  max-width: 600px;
+  width: 100%;
   position: relative;
+  margin: 0 auto;
 }
 
 .character_feature {
-  width: 600px;
+  max-width: 600px;
+  width: 100%;
 }
 
 .character_accessory {
   position: absolute !important;
 
-  width: 200px;
-  height: 200px;
 }
 
 .character_edit {
@@ -238,7 +270,7 @@ input {
   display: block;
   width: 100%;
   box-sizing: border-box;
-  height: 200px;
+  height: 100%;
 }
 
 .error {
@@ -261,7 +293,6 @@ input {
 
 .characterScrollerInner {
   display: flex;
-
   width: auto;
   height: 250px;
 }
@@ -280,16 +311,11 @@ input {
 }
 
 .characterSelected {
-  background-image: radial-gradient(white 20%, transparent 50%);
+  background-image: radial-gradient(white 40%, transparent 70%);
 }
 
 .characterDescription {
   padding: 0 20%;
-}
-
-.characterDisplay {
-  margin: 0 auto;
-  width: 600px;
 }
 
 .profile_grid {
@@ -298,11 +324,25 @@ input {
 }
 
 .homeGrid {
-  width: 100%;
   display: grid;
   grid-template-columns: auto auto;
 }
 
-.characterImage {
-  width: 300px;
+// .characterImage {
+//   width: 300px;
+// }
+
+.loginPage {
+  text-align: center;
+  max-width: 300px;
+  margin: 0 auto;
+}
+.loginPage input {
+  display: inline-block;
+}
+
+@media only screen and (max-width: 700px) {
+  .homeGrid {
+    grid-template-columns: auto;
+  }
 }

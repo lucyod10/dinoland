@@ -33,25 +33,44 @@
                 <%= link_to "Accessories", accessories_path, :class => "dropdown-item" %>
                 <%= link_to "All Users", users_path, :class => "dropdown-item" %>
               </div></li>
+
+              <% if @current_user.creator == true || @current_user.admin == true %>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Creator
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <%= link_to "Create Species", new_species_path, :class => "dropdown-item" %>
+                  <%= link_to "Create Accessory", new_accessory_path, :class => "dropdown-item" %>
+                </div></li>
+              <% end %>
+
+              
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <%= @current_user.username %>
-                <%= image_tag @current_user.profile_image, :class => "profileIcon" %>
+                <span class="userName"><%= @current_user.username %></span>
+                <%= cl_image_tag @current_user.profile_image, :class => "profileIcon" %>
               </a>
 
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <%= link_to "Account", user_path(@current_user.id), :class => "dropdown-item" %>
               <%= link_to "Add coins", coins_path, :class => "dropdown-item" %>
-              <%= link_to "Your Characters", session_characters_path, :class => "dropdown-item" %>
+              <% if @current_user.characters.present? %>
+                <%= link_to "Your Characters", session_characters_path, :class => "dropdown-item" %>
+              <% end %>
+              <% if @current_user.species.present? %>
               <%= link_to "Your Species", session_species_path, :class => "dropdown-item" %>
+              <% end %>
+              <% if @current_user.accessories.present? %>
               <%= link_to "Your Accessories", session_accessories_path, :class => "dropdown-item" %>
+              <% end %>
               <div class="dropdown-divider"></div>
               <%= link_to "logout", login_path, :method => 'delete', :class => "dropdown-item" %>
             </div></li>
 
             <% else %>
-            <li><%= link_to "Sign up", new_user_path %></li>
-            <li><%= link_to "sign in", login_path %></li>
+            <li><%= link_to "Sign up", new_user_path, :class => "nav-link" %></li>
+            <li><%= link_to "Sign in", login_path, :class => "nav-link" %></li>
             <% end %>
           </ul>
         </div>

@@ -16,4 +16,8 @@ class Character < ApplicationRecord
   belongs_to :user, :optional => true
   belongs_to :species, :optional => true
   has_many :posessions
+
+  def accessory_ids
+    self.posessions.map(&:accessory_id)
+  end
 end

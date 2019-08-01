@@ -4,7 +4,12 @@
 <p>Order: <%= @species.order %></p>
 <p>Diet: <%= @species.diet %></p>
 <% if @species.image.present? %>
-  <p>Image: <%= cl_image_tag @species.image, :class => "feature" %></p>
+    <% if @species.image.include? "." %>
+      <%= image_tag @species.image, :class => "feature" %>
+    <% elsif %>
+      <%= cl_image_tag @species.image, :class => "feature" %>
+    <% end %>
+
 <% end %>
 <p>Fun Fact: <%= @species.fun_fact %></p>
 <p>Creator: <%= link_to @species.user.username, user_path(@species.user.id) %></p>

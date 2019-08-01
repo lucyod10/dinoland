@@ -1,10 +1,20 @@
 <div class="centerContent">
-    <h1><%= @user.username %>!</h1>
-    <% if @user.admin == true %>
-    <h3>Admin</h3>
-    <% end %>
+    <h1><% if @user.admin == true %>
+          <%= image_tag "icon_admin.png", :class => "iconProfile" %>
+        <% end %>
+        <% if @user.creator == true %>
+          <%= image_tag "icon_artist.png", :class => "iconProfile" %>
+        <% end %>
+        <%= @user.username %>!</h1>
 
-    <%= image_tag @user.profile_image, :class => "profile_image" if @user.profile_image.present?%>
+        <% if @user.profile_image.present? %>
+          <% if @user.profile_image.include? "." %>
+            <%= image_tag @user.profile_image, :class => "profile_image" %>
+          <% elsif %>
+            <%= cl_image_tag @user.profile_image, :class => "profile_image" %>
+          <% end %>
+        <% end %>
+
     <p class="coin"><%= image_tag "coin.png" %><%= @user.coins  if @user.coins.present?%></p>
 
     <% if @user.characters.count > 0 %>
@@ -12,7 +22,14 @@
     <div class="profile_grid">
       <% @user.characters.each do |character| %>
           <div class="gridContainer"><%= link_to character.name, character %><br>
-          <%= link_to image_tag(character.species.image, :class => "thumb"), character if character.species.image.present? %></div>
+          <% if character.species.image.present? %>
+            <% if character.species.image.include? "." %>
+                <%= link_to image_tag(character.species.image, :class => "thumb"), character %>
+            <% elsif %>
+              <%= link_to cl_image_tag(character.species.image, :class => "thumb"), character %>
+            <% end %>
+          <% end %>
+        </div>
       <% end %>
     </div>
     <% end %>
@@ -24,7 +41,14 @@
     <div class="profile_grid">
       <% @user.species.each do |species| %>
           <div class="gridContainer"><%= link_to species.genus, species %><br>
-            <%= link_to image_tag(species.image, :class => "thumb"), species if species.image.present?  %></div>
+
+            <% if species.image.include? "." %>
+              <%= link_to image_tag(species.image, :class => "thumb"), species if species.image.present?  %>
+            <% elsif %>
+              <%= link_to cl_image_tag(species.image, :class => "thumb"), species if species.image.present?  %>
+            <% end %>
+
+          </div>
       <% end %>
     </div>
     <% end %>

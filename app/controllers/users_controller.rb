@@ -12,6 +12,17 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new user_params
+
+    if params[:file].present?
+      # Then call Cloudinary's upload method, passing in the file in params
+      req = Cloudinary::Uploader.upload(params[:file])
+      # Using the public_id allows us to use Cloudinary's powerful image
+      # transformation methods.
+      @user.profile_image = req["public_id"]
+      @user.save
+    end
+
+
     if @user.save
           session[:user_id] = @user.id
           redirect_to root_path
@@ -35,10 +46,21 @@ class UsersController < ApplicationController
   def update
     if @current_user.admin == true
       user = User.find params[:id]
-      user.update user_params
     else
-      @current_user.update user_params
+      user = @current_user
+      # TODO: how to make the coins only pass through if user is an admin.
+      params[:coins] = user.coins
     end
+
+    if params[:file].present?
+      # Then call Cloudinary's upload method, passing in the file in params
+      req = Cloudinary::Uploader.upload(params[:file])
+      # Using the public_id allows us to use Cloudinary's powerful image
+      # transformation methods.
+      user.profile_image = req["public_id"]
+      user.save
+    end
+    user.update user_params
     redirect_to user_path
   end
 

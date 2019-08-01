@@ -33,11 +33,7 @@
         <%= f.select :species_id, Species.pluck(:genus, :id) %>
     </div>
 
-
-    <div class="character_edit">
-        <div class="accessories_selected" id="accessories_selected"></div>
-        <%= image_tag @default_image, :id => "character_edit" %>
-    </div>
+      <%= render :partial => 'custom_character' %>
 
     <script>
       const accessoryImages = <%== @accessory_images.to_json %>;

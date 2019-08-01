@@ -1,5 +1,94 @@
-<h1>Edit <%= @character.name %>!</h1>
 
-<%# TODO: make submit button custom on each page %>
+<div class="centerContent">
+  <h1>Edit <%= @character.name %>!</h1>
 
-<%= render :partial => 'form' %>
+  <div class="create_character_grid">
+    <div class="character_form">
+        <%= form_for @character do |f| %>
+
+        <% if @character.errors.any? %>
+        <ol>
+          <% @character.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ol>
+        <% end %>
+
+        <%= f.label :name, :autofocus => true, :required => true %>
+        <%= f.text_field :name %>
+
+        <%= f.label :age, :required => true %>
+        <%= f.number_field :age %>
+
+        <%= f.label :talent, :required => true %>
+        <%= f.text_field :talent %>
+
+        <%# TODO: add in heading for species dropdown, that is unselectable %>
+        <%= f.label :species_id, :required => true %>
+
+        <%# Convert hash from controller that links species id to images into json. %>
+        <script>
+          const speciesImages = <%== @species_images.to_json %>;
+        </script>
+
+        <%= f.select :species_id, Species.pluck(:genus, :id) %>
+    </div>
+
+
+    <div class="character_container">
+      <div class="accessories_selected" id="accessories_selected">
+        <% if @character.posessions.present? %>
+          <% @character.posessions.each do |p| %>
+            <% id = p.accessory_id %>
+            <% acc = Accessory.find id %>
+            <%# TODO: give the posession an ID so it is removed when you uncheck. %>
+            <% uniqueid = "accessoryRendered" + id.to_s %>
+              <%= posession = image_tag acc.image, :class => "character_accessory", :id => uniqueid, :style => "position: absolute; top: #{p.x_pos}%; left: #{p.y_pos}%;" %>
+          <% end %>
+        <% end %>
+      </div>
+        <%= image_tag @character.species.image, :class => "character_feature", :id => "character_edit" %>
+    </div>
+
+
+    <script>
+      const accessoryImages = <%== @accessory_images.to_json %>;
+    </script>
+
+    <div class="character_shop">
+        <div class="shopTitle">
+          <p class="title">Shop</p>
+          <p class="coinCount"><%= image_tag "coin.png" %><span id="userTempCoins"><%= @current_user.coins %></span></p>
+        </div>
+
+<!-- TODO: if the charaacter already has a posession, check the checkbox. Make sure the money js file works too. (i.e. gives money back for unchecking it) -->
+        <div class="character_shop_grid">
+          <%= collection_check_boxes(:accessory, :id, Accessory.all, :id, :name) do |b| %>
+            <%= b.label(class: "check_box") { %>
+
+            <%= b.check_box(class: "check_box", data: "#{b.object.cost}", checked: @character.accessory_ids.include?(b.value)) %>
+            <div class="accessory_checkbox">
+              <span class="accessory_checkbox_cost">
+                <%= image_tag "coin.png" %>
+                <%= b.object.cost.to_s %>
+              </span>
+            <%= image_tag(b.object.image, :class => "icon")  %>
+            </div>
+            <% } %>
+
+          <% end %>
+
+
+          <% Accessory.all.each do |a| %>
+            <%= hidden_field_tag "positions[#{ a.id }_x]", 30 %>
+            <%= hidden_field_tag "positions[#{ a.id }_y]", 500 %>
+          <% end %>
+        </div>
+    </div>
+    <div class="character_create">
+      <%= hidden_field_tag "userCoins", 0 %>
+      <%= f.submit "Update Dino!" %>
+      <% end %>
+    </div>
+  </div>
+</div>

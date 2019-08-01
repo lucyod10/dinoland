@@ -4,6 +4,8 @@ u1 = User.create :email => "wow@wow.com", :username => "wow", :password => "chic
 u2 = User.create :email => "cool@cool.com", :username => "cool", :password => "chicken", :coins => 100, :profile_image => "accessory_bowtie.png"
 u3 = User.create :email => "rad@rad.com", :username => "rad", :password => "chicken", :coins => 100, :profile_image => "accessory_cap_blue.png"
 u4 = User.create :email => "admin@dinoland.com", :username => "admin", :password => "chicken", :admin => true, :coins => 1000, :profile_image => "accessory_sunglasses.png"
+u5 = User.create :email => "amy@amy.amy", :username => "Amy", :password => "amyamyamy", :admin => false, :coins => 1000, :profile_image => "dino_01.png", :creator => true
+
 
 Accessory.destroy_all
 puts "Creating Accessories"
@@ -31,14 +33,11 @@ s3 = Species.create :genus => "Troodon", :order => "Saurischia", :diet => "Omniv
 
 puts "Associations"
 # Users and accessories
-u1.accessories << a1 << a4 << a5
-u2.accessories << a2 << a6
-u3.accessories << a3 << a7
+u4.accessories << a1 << a2 << a3 << a4 << a5 << a6 << a7
 
 # Users and Species
-u1.species << s1
-u2.species << s2
-u3.species << s3
+u4.species << s1 << s2 << s3
+
 
 # Users and Characters
 u1.characters << c1
