@@ -107,12 +107,14 @@ $(document).ready(() => {
       left = left.substr(0, left.length-2);
       top = top.substr(0, top.length-2);
 
+
       // Calculate the X and Y as a percentage, for responsiveness.
       const featureWidth = $(".character_feature").width();
       const featureHeight = $(".character_feature").height();
 
       left = left / featureWidth * 100;
       top = top / featureHeight * 100;
+      console.log(left, top);
 
       $("#positions_" + accessoryId + "_x").val(top);
       $("#positions_" + accessoryId + "_y").val(left);
