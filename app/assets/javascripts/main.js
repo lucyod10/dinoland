@@ -120,13 +120,13 @@ $(document).ready(() => {
     icon.draggable({
       // TODO: make a box to contain draggable elements
         containment: ".create_character_grid",
-        scroll: false,
+        scroll: false
         // stop: function () {
         // var l = ( 100 * parseFloat($(this).position().left / parseFloat($(this).parent().width())) ) + "%" ;
         // var t = ( 100 * parseFloat($(this).position().top / parseFloat($(this).parent().height())) ) + "%" ;
         // $(this).css("left", l);
         // $(this).css("top", t);
-        }
+        //}
     });
     // resize icon if the screen is smaller than 600px. Timeout to allow image to load, otherwise width set to 0 until window is manually resized.
     setTimeout(resizeAcc, 500);
