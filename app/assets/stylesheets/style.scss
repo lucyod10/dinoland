@@ -287,6 +287,16 @@ label {
   width: 100%;
 }
 
+.iconIndex {
+  height: 1em;
+  width: 1em;
+  display: inline;
+}
+
+.index a {
+  display: inline !important;
+}
+
 .character_accessory {
   position: absolute !important;
 

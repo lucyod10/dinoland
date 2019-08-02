@@ -3,7 +3,14 @@
 <ol>
 <% @users.each do |user| %>
   <% if user.admin == false %>
-    <li><%= link_to user.username, user %></li>
+    <li class="index"><%= link_to user.username, user %>
+      <% if user.admin == true %>
+        <%= image_tag "icon_admin.png", :class => "iconIndex" %>
+        <% end %>
+      <% if user.creator == true %>
+        <%= image_tag "icon_artist.png", :class => "iconIndex" %>
+      <% end %>
+    </li>
   <% end %>
 <% end %>
 </ol>
