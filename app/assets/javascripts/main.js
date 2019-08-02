@@ -104,8 +104,8 @@ $(document).ready(() => {
       let left = icon.css("left");
       let top = icon.css("top");
 
-      left = parseInt(left, 10);
-      top = parseInt(top, 10);
+      left = left.substr(0, left.length-2);
+      top = top.substr(0, top.length-2);
 
       // Calculate the X and Y as a percentage, for responsiveness.
       const featureWidth = $(".character_feature").width();
