@@ -1,24 +1,33 @@
-# README
+# DinoLand!
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+DinoLand can be found [here](https://dinoland-project.herokuapp.com/)
 
-Things you may want to cover:
+## About
 
-* Ruby version
+DinoLand is a platform where users can create a collection of their own dinosaur characters, and dress them up in a variety of accessories!
 
-* System dependencies
+With your fresh new characters, play the in built game to earn more coins, so you can change up their fresh looks!
 
-* Configuration
+## Features
 
-* Database creation
+- Create a User
+- Create Characters
+- Play the game with your selected character to earn dino coins!
+- Give your characters Posessions from the Accessory list using the dino coins you have earned
+- Browse other User's profile pages, to see what Characters (Or species or accessories!) they have made.
 
-* Database initialization
 
-* How to run the test suite
+- Creator Account:
+  - Some users can apply to be creators.
+  - A creator account is able to contribute to the platform by creating species and accessories for the community to use!
 
-* Services (job queues, cache servers, search engines, etc.)
 
-* Deployment instructions
+- Delete your characters or your own account.
 
-* ...
+- Game Coming Soon.
+
+## Screenshot
+
+## Knows Issues
+
+- Posessions do not resize on load on some occasions. Quick Fix: resize your window to trigger.
