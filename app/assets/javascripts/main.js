@@ -1,7 +1,10 @@
 $(document).ready(() => {
   resizeAcc();
 
-// TODO: check for page loaded, so that js doesnt run on every page.
+  // wait for accessory and character image loads, then resize image (needed so that it can access the width and height of the image, otherwise sets the width to 0)
+  document.querySelectorAll(".character_accessory, .character_feature").forEach((item) => {
+    item.onload = resizeAcc;
+  });
 
 // NEW DINO ///////////////////////////////////////////////////////////////
 
@@ -218,6 +221,7 @@ $(document).ready(() => {
       let accessories = $(".character_accessory");
       accessories.each(function () {
         let accessoryOriginalW = this.naturalWidth;
+        console.log('accessoryOriginalW', accessoryOriginalW)
         let accessoryOriginalH = this.naturalHeight;
         // Using 600 for now as that is the width and height of all species.
         // TODO: change this ("600") to a repsonsive number for the species being displayed.
@@ -228,6 +232,8 @@ $(document).ready(() => {
         // then multiply it by the new feature width to get the new accessory width.
         let w = $(".character_feature").width() * (accessoryOriginalW / 600);
         let h = $(".character_feature").height() * (accessoryOriginalH / 600);
+
+        console.log('w', w)
 
         $(this).width(w);
         $(this).height(h);
