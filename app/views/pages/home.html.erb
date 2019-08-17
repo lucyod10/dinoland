@@ -1,7 +1,7 @@
 <div class="centerContent">
   <h1>Welcome to Dinoland!</h1>
   <% if @current_user.characters.length > 0 %>
-    <p>Double tap one of your characters to choose him! Then press play.</p>
+    <p>Click one of your characters to choose him! Then press play.</p>
   <% else %>
     <p><%= link_to "Create your first character", new_character_path, :class => "createButton" %></p>
     <p><%= link_to "Check out other characters", characters_path, :class => "characterButton" %></p>

@@ -6,6 +6,43 @@ $(document).ready(() => {
     item.onload = resizeAcc;
   });
 
+  // If page is the edit dino page, when all accessories are loaded, make them draggable.
+  if (document.getElementsByClassName("editContainer").length > 0) {
+    document.querySelectorAll(".character_accessory").forEach((icon) => {
+      console.log(icon)
+      icon = $(icon);
+      // change the X and Y values being sent to the database every time a user stops dragging.
+      icon.on("click", function () {
+        let left = icon.css("left");
+        let top = icon.css("top");
+        let accessoryId = icon.attr("id");
+        accessoryId = accessoryId.replace(/(\D+)/, "");
+        console.log(accessoryId)
+
+        left = left.substr(0, left.length-2);
+        top = top.substr(0, top.length-2);
+
+
+        // Calculate the X and Y as a percentage, for responsiveness.
+        const featureWidth = $(".character_feature").width();
+        const featureHeight = $(".character_feature").height();
+
+        left = left / featureWidth * 100;
+        top = top / featureHeight * 100;
+        console.log(left, top);
+
+        $("#positions_" + accessoryId + "_x").val(top);
+        $("#positions_" + accessoryId + "_y").val(left);
+      });
+      icon.draggable({
+        // TODO: make a box to contain draggable elements
+        // TODO: make draggable work on mobile
+          containment: ".create_character_grid",
+          scroll: false
+      });
+    });
+  }
+
 // NEW DINO ///////////////////////////////////////////////////////////////
 
 // Each time the species dropdown value is changed, find the ID of the newly selected species,
@@ -25,9 +62,6 @@ $(document).ready(() => {
   }).trigger("change");
 
 // ACCESSORY SELECT //////////////////////////////////////////////////////////
-
-  // Array containing all the currently checked accessories. Updated on click of a checkbox.
-  // let checkedAccessories = [];
 
   // When you click on an input, check all the inputs, and remake the array.
   $("input[type=checkbox]").on("click", function (e) {
@@ -117,65 +151,19 @@ $(document).ready(() => {
 
       left = left / featureWidth * 100;
       top = top / featureHeight * 100;
-      console.log(left, top);
 
       $("#positions_" + accessoryId + "_x").val(top);
       $("#positions_" + accessoryId + "_y").val(left);
     });
     icon.draggable({
       // TODO: make a box to contain draggable elements
+      // TODO: make draggable work on mobile
         containment: ".create_character_grid",
         scroll: false
-        // stop: function () {
-        // var l = ( 100 * parseFloat($(this).position().left / parseFloat($(this).parent().width())) ) + "%" ;
-        // var t = ( 100 * parseFloat($(this).position().top / parseFloat($(this).parent().height())) ) + "%" ;
-        // $(this).css("left", l);
-        // $(this).css("top", t);
-        //}
     });
     // resize icon if the screen is smaller than 600px. Timeout to allow image to load, otherwise width set to 0 until window is manually resized.
     setTimeout(resizeAcc, 500);
   }
-
-  // // TODO: On page load, find all the rendered icons and make them draggable.
-  // // ISSUE: Edit controller makes a new entry for posession on save. Filter through and replace old posession values rather than creating a new entry.
-  // const editPagePresent = $("#editPage");
-  // if (editPagePresent) {
-  //   console.log($(".character_accessory"));
-  //   const posessions = $(".character_accessory");
-  //   posessions.draggable({
-  //     // TODO: make a box to contain draggable elements
-  //       containment: ".create_character_grid",
-  //       scroll: false,
-  //       stop: function () {
-  //       var l = ( 100 * parseFloat($(this).position().left / parseFloat($(this).parent().width())) ) + "%" ;
-  //       var t = ( 100 * parseFloat($(this).position().top / parseFloat($(this).parent().height())) ) + "%" ;
-  //       $(this).css("left", l);
-  //       $(this).css("top", t);
-  //       }
-  //   });
-  //
-  //   posessions.on("mouseup", function () {
-  //     let left = $(this).css("left");
-  //     let top = $(this).css("top");
-  //
-  //     left = parseInt(left, 10);
-  //     top = parseInt(top, 10);
-  //
-  //     // Calculate the X and Y as a percentage, for responsiveness.
-  //     const featureWidth = $(".character_feature").width();
-  //     const featureHeight = $(".character_feature").height();
-  //
-  //     left = left / featureWidth * 100;
-  //     top = top / featureHeight * 100;
-  //
-  //     const id = $(this).attr("id");
-  //     const accessoryId = id.replace(/[^0-9\.]/g, '');
-  //
-  //     $("#positions_" + accessoryId + "_x").val(top);
-  //     $("#positions_" + accessoryId + "_y").val(left);
-  //   });
-  // }
 
   // after every click, filter through all the icons to check if you have enough money for them, turning them red if you dont.
   function renderNotEnoughCoins() {
@@ -221,7 +209,6 @@ $(document).ready(() => {
       let accessories = $(".character_accessory");
       accessories.each(function () {
         let accessoryOriginalW = this.naturalWidth;
-        console.log('accessoryOriginalW', accessoryOriginalW)
         let accessoryOriginalH = this.naturalHeight;
         // Using 600 for now as that is the width and height of all species.
         // TODO: change this ("600") to a repsonsive number for the species being displayed.
@@ -232,8 +219,6 @@ $(document).ready(() => {
         // then multiply it by the new feature width to get the new accessory width.
         let w = $(".character_feature").width() * (accessoryOriginalW / 600);
         let h = $(".character_feature").height() * (accessoryOriginalH / 600);
-
-        console.log('w', w)
 
         $(this).width(w);
         $(this).height(h);

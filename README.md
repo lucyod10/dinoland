@@ -42,15 +42,19 @@ No additional software required, only a good attitude and some creativity!
 ## Screenshot
 
 *Home Page*
+
 ![Screenshot 1](./app/assets/images/screenshots/screenshot_01_homepage_combo.png)
 
 *Create a Character*
+
 ![Screenshot 2](./app/assets/images/screenshots/screenshot_04_create_combo.png)
 
 *Species List*
+
 ![Screenshot 3](./app/assets/images/screenshots/screenshot_02_species.png)
 
 *User Profile Page*
+
 ![Screenshot 4](./app/assets/images/screenshots/screenshot_03_profilepage.png)
 
 
@@ -60,5 +64,4 @@ Special thanks to [Amy Buchan](www.amybuchan.com) for contributing to the specie
 
 ## Knows Issues
 
-- Posessions do not resize on load on some occasions. Quick Fix: resize your window to trigger.
-- Not mobile responsive.
+- Not mobile compatible for creating and editing dinosaurs.

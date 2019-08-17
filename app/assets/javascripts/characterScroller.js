@@ -10,14 +10,15 @@ $(document).ready(() => {
 
     let characters = $(".characterImage");
 
-    characters.on("dblclick", function () {
+    characters.on("click", function () {
       characters = $(".characterImage");
       characters.removeClass("characterSelected");
       this.classList.add("characterSelected");
       let id = this.getAttribute("id");
       $('#selectedCharacterHidden').val(id);
-
     });
+
+    $(characters[0]).trigger("click");
 
 // DRAGGING ///////////////////////////////////////////////////////////////////
 

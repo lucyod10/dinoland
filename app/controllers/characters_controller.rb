@@ -127,8 +127,26 @@ class CharactersController < ApplicationController
           end
         end
 
-        new_posession = Posession.create :accessory_id => p, :character_id => character.id, :x_pos => @x_pos, :y_pos => @y_pos
-        character.posessions << new_posession
+        # check if posession doesnt already exist.
+        if character.posessions.exists?(accessory_id: p)
+          # find the posession and remove it from the character
+          oldposession = character.posessions.where(accessory_id: p)
+          oldposession.each do |item|
+            if @x_pos != "30" && @y_pos != "500"
+              character.posessions.delete(item)
+              # associate a new posession with the updated values.
+              new_posession = Posession.create :accessory_id => p, :character_id => character.id, :x_pos => @x_pos, :y_pos => @y_pos
+              character.posessions << new_posession
+            end
+          end
+          # if the posession already existed, check if the values have been moved and if they havent then do not remove, nor create a new entry.
+        else
+          # associate a new posession with the updated values.
+          new_posession = Posession.create :accessory_id => p, :character_id => character.id, :x_pos => @x_pos, :y_pos => @y_pos
+          character.posessions << new_posession
+        end
+
+
       end
 
       # change users coins based on accessories selected.
